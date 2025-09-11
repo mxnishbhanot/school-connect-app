@@ -1,0 +1,71 @@
+<ion-content fullscreen class="flex items-center justify-center bg-babyblue font-nunito">
+  <div
+    class="w-11/12 sm:w-96 md:w-[28rem] p-8 bg-white rounded-2xl shadow-lg animate-fadeIn"
+  >
+    <!-- Logo -->
+    <div class="flex flex-col items-center mb-8">
+      <div
+        class="w-20 h-20 rounded-full bg-mint flex items-center justify-center shadow-md"
+      >
+        <span class="text-4xl">😊</span>
+      </div>
+      <h1 class="mt-4 text-2xl font-bold text-textPrimary">
+        Kindergarten Hub
+      </h1>
+    </div>
+
+    <!-- Form -->
+    <form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="space-y-6">
+      <!-- Email -->
+      <ion-item class="rounded-lg border border-mint">
+        <ion-input
+          type="email"
+          formControlName="email"
+          placeholder="Email"
+          class="px-3"
+        ></ion-input>
+      </ion-item>
+
+      <!-- Password -->
+      <ion-item class="rounded-lg border border-mint">
+        <ion-input
+          type="password"
+          formControlName="password"
+          placeholder="Password"
+          class="px-3"
+        ></ion-input>
+      </ion-item>
+
+      <!-- Role -->
+      <ion-item class="rounded-lg border border-mint">
+        <ion-select formControlName="role" placeholder="Select Role">
+          <ion-select-option value="teacher">Teacher 🍎</ion-select-option>
+          <ion-select-option value="parent">Parent 🧑‍👧‍👦</ion-select-option>
+          <ion-select-option value="admin">Admin 🔑</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- Submit -->
+      <button
+        type="submit"
+        class="w-full py-3 bg-mint text-white font-semibold rounded-lg shadow-md hover:bg-babyblue transition"
+      >
+        {{ tab === 'login' ? 'Login' : 'Signup' }}
+      </button>
+    </form>
+
+    <!-- Switch Tabs -->
+    <div class="mt-6 text-center">
+      <p class="text-sm text-gray-600">
+        {{ tab === 'login' ? "Don't have an account?" : "Already have an account?" }}
+        <button
+          type="button"
+          class="ml-1 text-accentpink font-semibold"
+          (click)="setTab(tab === 'login' ? 'signup' : 'login')"
+        >
+          {{ tab === 'login' ? 'Signup' : 'Login' }}
+        </button>
+      </p>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,8 @@
+<div class="p-6 flex flex-col items-center">
+  <h2 class="text-xl font-bold mb-4 text-mint">Settings</h2>
+  <button (click)="goBack()" class="mb-4 px-4 py-2 rounded-lg bg-mint text-accentpink font-bold shadow-soft hover:bg-babyblue transition-all">← Back</button>
+  <button (click)="switchTheme()" class="px-6 py-2 rounded-lg shadow-soft font-bold bg-babyblue text-accentpink hover:bg-mint transition-all">
+    Switch to {{ theme === 'light' ? 'Dark' : 'Light' }} Mode
+  </button>
+  <div class="mt-2 text-xs text-babyblue">Current: <span class="font-bold">{{ theme | titlecase }}</span> Theme</div>
+</div>

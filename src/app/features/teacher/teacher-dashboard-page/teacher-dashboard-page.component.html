@@ -1,0 +1,151 @@
+<div class="min-h-screen bg-babyblue font-nunito">
+  <!-- Tabs -->
+  <div class="flex justify-center pt-6 pb-4 gap-2">
+    <button (click)="setTab('homework')" [class.bg-mint]="tab==='homework'" class="flex items-center gap-2 px-4 py-2 rounded-lg font-bold shadow-soft transition-all" [class.text-white]="tab==='homework'">
+      <span>📚</span>
+      <span class="hidden sm:inline">Homework</span>
+    </button>
+    <button (click)="setTab('gallery')" [class.bg-babyblue]="tab==='gallery'" class="flex items-center gap-2 px-4 py-2 rounded-lg font-bold shadow-soft transition-all" [class.text-accentpink]="tab==='gallery'">
+      <span>�️</span>
+      <span class="hidden sm:inline">Gallery</span>
+    </button>
+    <button (click)="setTab('announcements')" [class.bg-accentpink]="tab==='announcements'" class="flex items-center gap-2 px-4 py-2 rounded-lg font-bold shadow-soft transition-all" [class.text-white]="tab==='announcements'">
+      <span>�</span>
+      <span class="hidden sm:inline">Announcements</span>
+      <span>📅</span>
+    </button>
+  </div>
+
+  <!-- Homework Tab -->
+  @if (tab === 'homework') {
+    <div class="max-w-xl mx-auto p-4">
+      <button (click)="openHomeworkModal()" class="mb-4 w-full py-2 rounded-lg bg-mint text-accentpink font-bold shadow-soft">➕ Add Homework</button>
+      <!-- Homework List -->
+      <div class="ion-grid">
+        <div class="ion-row">
+          <div class="ion-col">
+            @if ((homework$ | async)?.length === 0) {
+              <div class="text-center py-8 text-babyblue bg-lightyellow rounded-lg shadow-soft">
+                No homework yet <span class="text-2xl">📚</span>
+              </div>
+            }
+            @for (hw of (homework$ | async); track hw.id) {
+              <div class="bg-mint/30 rounded-lg shadow-soft p-4 mb-3 flex flex-col sm:flex-row justify-between items-center">
+                <div>
+                  <div class="font-bold text-lg text-mint flex items-center gap-2"><span>📚</span>{{ hw.title }}</div>
+                  <div class="text-babyblue">{{ hw.description }}</div>
+                  <div class="text-xs text-lightyellow">Class: {{ hw.classId }}</div>
+                </div>
+                <div class="flex gap-2 mt-2 sm:mt-0">
+                  <button class="text-accentpink bg-white rounded-full p-2 shadow-soft" title="Edit"><i class="lucide lucide-pencil"></i></button>
+                  <button class="text-accentpink bg-white rounded-full p-2 shadow-soft" title="Delete" (click)="deleteHomework(hw.id)"><i class="lucide lucide-trash"></i></button>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Homework Modal -->
+    @if (showHomeworkModal) {
+      <div class="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 shadow-soft w-80">
+          <h3 class="text-lg font-bold mb-4 text-mint flex items-center gap-2">➕ Add Homework</h3>
+          <form [formGroup]="homeworkForm" (ngSubmit)="addHomework()">
+            <input formControlName="title" placeholder="Title" class="mb-2 w-full px-3 py-2 rounded-lg border-2 border-mint bg-lightyellow/40" />
+            <textarea formControlName="description" placeholder="Description" class="mb-2 w-full px-3 py-2 rounded-lg border-2 border-mint bg-lightyellow/40"></textarea>
+            <input formControlName="attachment" type="file" class="mb-2 w-full bg-white rounded-lg" />
+            <input formControlName="class" placeholder="Class" class="mb-2 w-full px-3 py-2 rounded-lg border-2 border-mint bg-lightyellow/40" />
+            <div class="flex gap-2 mt-4">
+              <button type="submit" class="bg-mint text-accentpink font-bold px-4 py-2 rounded-lg shadow-soft flex items-center gap-2"><span>✅</span>Add</button>
+              <button type="button" (click)="closeHomeworkModal()" class="bg-lightyellow text-babyblue font-bold px-4 py-2 rounded-lg shadow-soft flex items-center gap-2"><span>❌</span>Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    }
+  }
+
+  <!-- Gallery Tab -->
+  @if (tab === 'gallery') {
+    <div class="max-w-xl mx-auto p-4">
+      <button (click)="openGalleryModal()" class="mb-4 w-full py-2 rounded-lg bg-babyblue text-accentpink font-bold shadow-soft">📸 Upload Photos</button>
+      <!-- Albums Grid -->
+      <div class="grid grid-cols-2 gap-4">
+  @for (album of albums; track albums.indexOf(album)) {
+          <div class="bg-white rounded-lg shadow-soft p-4 flex flex-col items-center">
+            <div class="w-24 h-24 bg-mint rounded-lg mb-2 flex items-center justify-center">
+              <span class="text-2xl text-accentpink">📸</span>
+            </div>
+            <div class="font-bold text-mint">{{ album.event }}</div>
+            <div class="text-xs text-babyblue">{{ album.date }}</div>
+          </div>
+        }
+      </div>
+    </div>
+    <!-- Gallery Modal -->
+    @if (showGalleryModal) {
+      <div class="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 shadow-soft w-80">
+          <h3 class="text-lg font-bold mb-4 text-babyblue">Upload Photos</h3>
+          <form [formGroup]="galleryForm" (ngSubmit)="addAlbum()">
+            <input formControlName="event" placeholder="Event Name" class="mb-2 w-full px-3 py-2 rounded-lg border border-mint" />
+            <input formControlName="date" type="date" class="mb-2 w-full px-3 py-2 rounded-lg border border-mint" />
+            <input formControlName="file" type="file" class="mb-2 w-full" />
+            <div class="flex gap-2 mt-4">
+              <button type="submit" class="bg-babyblue text-accentpink font-bold px-4 py-2 rounded-lg shadow-soft">Upload</button>
+              <button type="button" (click)="closeGalleryModal()" class="bg-lightyellow text-babyblue font-bold px-4 py-2 rounded-lg shadow-soft">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    }
+  }
+
+  <!-- Announcements/Calendar Tab -->
+  @if (tab === 'announcements') {
+    <div class="max-w-xl mx-auto p-4">
+      <button (click)="openAnnouncementModal()" class="mb-4 w-full py-2 rounded-lg bg-accentpink text-white font-bold shadow-soft">📢 Add Announcement</button>
+      <!-- Announcements List -->
+  @for (ann of announcements; track announcements.indexOf(ann)) {
+        <div class="bg-white rounded-lg shadow-soft p-4 mb-3 flex justify-between items-center">
+          <div>
+            <div class="font-bold text-lg text-accentpink">{{ ann.message }}</div>
+            <div class="text-xs text-babyblue">{{ ann.date }}</div>
+          </div>
+        </div>
+      }
+      <!-- Calendar View (static) -->
+      <div class="bg-white rounded-lg shadow-soft p-4 mt-6">
+        <div class="font-bold text-babyblue mb-2">September 2025</div>
+        <div class="grid grid-cols-7 gap-2">
+          @for (day of calendarDays; track day) {
+            <div class="w-8 h-8 flex items-center justify-center rounded-lg bg-lightyellow text-babyblue relative">
+              {{ day }}
+              @for (ev of calendarEvents; track calendarEvents.indexOf(ev)) {
+                @if (ev.date.endsWith(`-${day.toString().padStart(2,'0')}`)) {
+                  <span class="absolute top-0 right-0 text-xs text-accentpink">{{ ev.label }}</span>
+                }
+              }
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+    <!-- Announcement Modal -->
+    @if (showAnnouncementModal) {
+      <div class="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 shadow-soft w-80">
+          <h3 class="text-lg font-bold mb-4 text-accentpink">Add Announcement</h3>
+          <form [formGroup]="announcementForm" (ngSubmit)="addAnnouncement()">
+            <input formControlName="message" placeholder="Announcement" class="mb-2 w-full px-3 py-2 rounded-lg border border-mint" />
+            <div class="flex gap-2 mt-4">
+              <button type="submit" class="bg-accentpink text-white font-bold px-4 py-2 rounded-lg shadow-soft">Add</button>
+              <button type="button" (click)="closeAnnouncementModal()" class="bg-lightyellow text-babyblue font-bold px-4 py-2 rounded-lg shadow-soft">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    }
+  }
+</div>

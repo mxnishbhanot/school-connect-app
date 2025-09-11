@@ -1,0 +1,99 @@
+<div class="min-h-screen bg-babyblue font-nunito">
+  <!-- Tabs -->
+  <div class="flex justify-center pt-6 pb-4">
+    <button (click)="tab='homework'" [class.bg-mint]="tab==='homework'" class="px-6 py-2 rounded-l-lg font-bold shadow-soft" [class.text-white]="tab==='homework'">Today's Homework</button>
+    <button (click)="tab='gallery'" [class.bg-babyblue]="tab==='gallery'" class="px-6 py-2 font-bold shadow-soft" [class.text-accentpink]="tab==='gallery'">Photo Gallery</button>
+    <button (click)="tab='announcements'" [class.bg-accentpink]="tab==='announcements'" class="px-6 py-2 rounded-r-lg font-bold shadow-soft" [class.text-white]="tab==='announcements'">Announcements/Calendar</button>
+  </div>
+
+  <!-- Homework Tab -->
+  @if (tab === 'homework') {
+    <div class="max-w-xl mx-auto p-4">
+      <div class="flex gap-2 mb-4">
+        <button (click)="homeworkFilter='week'" [class.bg-mint]="homeworkFilter==='week'" class="px-4 py-2 rounded-lg font-bold shadow-soft" [class.text-white]="homeworkFilter==='week'">This Week</button>
+        <button (click)="homeworkFilter='all'" [class.bg-babyblue]="homeworkFilter==='all'" class="px-4 py-2 rounded-lg font-bold shadow-soft" [class.text-accentpink]="homeworkFilter==='all'">All Homework</button>
+      </div>
+      @for (hw of filteredHomework; track filteredHomework.indexOf(hw)) {
+        <div class="bg-white rounded-lg shadow-soft p-4 mb-3">
+          <div class="font-bold text-lg text-mint">{{ hw.subject }}</div>
+          <div class="text-babyblue">{{ hw.task }}</div>
+          @if (hw.attachment) {
+            <a [href]="hw.attachment" class="text-accentpink underline">Attachment</a>
+          }
+        </div>
+      }
+    </div>
+  }
+
+  <!-- Gallery Tab -->
+  @if (tab === 'gallery') {
+    <div class="max-w-xl mx-auto p-4">
+      <div class="grid grid-cols-2 gap-4">
+        @for (album of albums; track albums.indexOf(album)) {
+          <div class="bg-white rounded-lg shadow-soft p-4 flex flex-col items-center cursor-pointer" (click)="selectAlbum(album)">
+            <div class="w-24 h-24 bg-mint rounded-lg mb-2 flex items-center justify-center">
+              <span class="text-2xl text-accentpink">📸</span>
+            </div>
+            <div class="font-bold text-mint">{{ album.event }}</div>
+            <div class="text-xs text-babyblue">{{ album.date }}</div>
+          </div>
+        }
+      </div>
+      <!-- Album Modal -->
+      @if (selectedAlbum) {
+        <div class="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
+          <div class="bg-white rounded-lg p-6 shadow-soft w-80">
+            <h3 class="text-lg font-bold mb-4 text-mint">{{ selectedAlbum.event }}</h3>
+            <div class="grid grid-cols-2 gap-2 mb-4">
+              @for (photo of selectedAlbum.photos; track selectedAlbum.photos.indexOf(photo)) {
+                <div class="relative">
+                  <img [src]="photo" alt="Photo" class="w-24 h-24 rounded-lg object-cover" />
+                  <div class="absolute top-1 right-1 flex gap-1">
+                    <button class="bg-mint text-accentpink px-2 py-1 rounded shadow-soft" title="Download"><i class="fas fa-download"></i></button>
+                    <button class="bg-accentpink text-white px-2 py-1 rounded shadow-soft" title="Share"><i class="fas fa-share"></i></button>
+                  </div>
+                </div>
+              }
+            </div>
+            <button (click)="closeAlbum()" class="bg-lightyellow text-babyblue font-bold px-4 py-2 rounded-lg shadow-soft">Close</button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- Announcements/Calendar Tab -->
+  @if (tab === 'announcements') {
+    <div class="max-w-xl mx-auto p-4">
+      <div class="bg-white rounded-lg shadow-soft p-4 mb-4">
+        <div class="font-bold text-babyblue mb-2">September 2025</div>
+        <div class="grid grid-cols-7 gap-2">
+          @for (day of calendarDays; track day) {
+            <div class="w-8 h-8 flex items-center justify-center rounded-lg bg-lightyellow text-babyblue relative">
+              {{ day }}
+              @for (ev of holidays; track holidays.indexOf(ev)) {
+                @if (ev.date.endsWith(`-${day.toString().padStart(2,'0')}`)) {
+                  <span class="absolute top-0 right-0 text-xs text-accentpink">{{ ev.label }}</span>
+                }
+              }
+              @for (ev of events; track events.indexOf(ev)) {
+                @if (ev.date.endsWith(`-${day.toString().padStart(2,'0')}`)) {
+                  <span class="absolute bottom-0 left-0 text-xs text-mint">{{ ev.label }}</span>
+                }
+              }
+            </div>
+          }
+        </div>
+      </div>
+      <div>
+        <div class="font-bold text-lg text-accentpink mb-2">Upcoming Holidays & Events</div>
+        @for (ev of holidays; track holidays.indexOf(ev)) {
+          <div class="bg-lightyellow rounded-lg shadow-soft p-2 mb-2 text-babyblue">{{ ev.label }} - {{ ev.date }}</div>
+        }
+        @for (ev of events; track events.indexOf(ev)) {
+          <div class="bg-mint rounded-lg shadow-soft p-2 mb-2 text-accentpink">{{ ev.label }} - {{ ev.date }}</div>
+        }
+      </div>
+    </div>
+  }
+</div>
