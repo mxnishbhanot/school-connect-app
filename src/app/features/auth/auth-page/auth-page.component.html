@@ -1,71 +1,117 @@
-<ion-content fullscreen class="flex items-center justify-center bg-babyblue font-nunito">
-  <div
-    class="w-11/12 sm:w-96 md:w-[28rem] p-8 bg-white rounded-2xl shadow-lg animate-fadeIn"
-  >
-    <!-- Logo -->
-    <div class="flex flex-col items-center mb-8">
-      <div
-        class="w-20 h-20 rounded-full bg-mint flex items-center justify-center shadow-md"
-      >
-        <span class="text-4xl">😊</span>
+<ion-content class="bg-babyblue font-nunito">
+  <div class="min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-pastel animate-fadeIn p-8">
+      <!-- Logo Section -->
+      <div class="flex flex-col items-center mb-8">
+        <div class="w-20 h-20 rounded-full bg-mint flex items-center justify-center shadow-soft mb-4">
+          <span class="text-4xl">😊</span>
+        </div>
+        <h1 class="text-2xl font-bold text-textPrimary text-center">
+          Kindergarten Hub
+        </h1>
       </div>
-      <h1 class="mt-4 text-2xl font-bold text-textPrimary">
-        Kindergarten Hub
-      </h1>
-    </div>
 
-    <!-- Form -->
-    <form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="space-y-6">
-      <!-- Email -->
-      <ion-item class="rounded-lg border border-mint">
-        <ion-input
-          type="email"
-          formControlName="email"
-          placeholder="Email"
-          class="px-3"
-        ></ion-input>
-      </ion-item>
+      <!-- Form -->
+      <form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <!-- Email Field -->
+        <div class="space-y-2">
+          <label class="block text-sm font-semibold text-textPrimary">Email</label>
+          <ion-item
+            lines="none"
+            class="rounded-lg border-2 border-mint/30 bg-white"
+            [class.border-error]="authForm.get('email')?.invalid && authForm.get('email')?.touched"
+          >
+            <ion-input
+              type="email"
+              formControlName="email"
+              placeholder="Enter your email"
+              class="text-textPrimary"
+            ></ion-input>
+          </ion-item>
+          <div
+            *ngIf="authForm.get('email')?.invalid && authForm.get('email')?.touched"
+            class="text-error text-xs mt-1"
+          >
+            Please enter a valid email address
+          </div>
+        </div>
 
-      <!-- Password -->
-      <ion-item class="rounded-lg border border-mint">
-        <ion-input
-          type="password"
-          formControlName="password"
-          placeholder="Password"
-          class="px-3"
-        ></ion-input>
-      </ion-item>
+        <!-- Password Field -->
+        <div class="space-y-2">
+          <label class="block text-sm font-semibold text-textPrimary">Password</label>
+          <ion-item
+            lines="none"
+            class="rounded-lg border-2 border-mint/30 bg-white"
+            [class.border-error]="authForm.get('password')?.invalid && authForm.get('password')?.touched"
+          >
+            <ion-input
+              type="password"
+              formControlName="password"
+              placeholder="Enter your password"
+              class="text-textPrimary"
+            ></ion-input>
+          </ion-item>
+          <div
+            *ngIf="authForm.get('password')?.invalid && authForm.get('password')?.touched"
+            class="text-error text-xs mt-1"
+          >
+            Password must be at least 6 characters
+          </div>
+        </div>
 
-      <!-- Role -->
-      <ion-item class="rounded-lg border border-mint">
-        <ion-select formControlName="role" placeholder="Select Role">
-          <ion-select-option value="teacher">Teacher 🍎</ion-select-option>
-          <ion-select-option value="parent">Parent 🧑‍👧‍👦</ion-select-option>
-          <ion-select-option value="admin">Admin 🔑</ion-select-option>
-        </ion-select>
-      </ion-item>
+        <!-- Role Field -->
+        <div class="space-y-2">
+          <label class="block text-sm font-semibold text-textPrimary">Role</label>
+          <ion-item
+            lines="none"
+            class="rounded-lg border-2 border-mint/30 bg-white"
+            [class.border-error]="authForm.get('role')?.invalid && authForm.get('role')?.touched"
+          >
+            <ion-select
+              formControlName="role"
+              placeholder="Select your role"
+              interface="action-sheet"
+              toggle-icon=false
+            >
+              <ion-select-option value="teacher">Teacher</ion-select-option>
+              <ion-select-option value="parent">Student</ion-select-option>
+              <ion-select-option value="admin">Admin</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div
+            *ngIf="authForm.get('role')?.invalid && authForm.get('role')?.touched"
+            class="text-error text-xs mt-1"
+          >
+            Please select a role
+          </div>
+        </div>
 
-      <!-- Submit -->
-      <button
-        type="submit"
-        class="w-full py-3 bg-mint text-white font-semibold rounded-lg shadow-md hover:bg-babyblue transition"
-      >
-        {{ tab === 'login' ? 'Login' : 'Signup' }}
-      </button>
-    </form>
+        <!-- Submit Button -->
+        <ion-button
+          type="submit"
+          expand="block"
+          class="mt-6 h-12 rounded-lg bg-mint hover:bg-success transition-all duration-300 shadow-soft"
+          [disabled]="!authForm.valid"
+        >
+          <span class="text-white font-semibold text-base">
+            {{ tab === 'login' ? 'Login' : 'Sign Up' }}
+          </span>
+        </ion-button>
+      </form>
 
-    <!-- Switch Tabs -->
-    <div class="mt-6 text-center">
-      <p class="text-sm text-gray-600">
-        {{ tab === 'login' ? "Don't have an account?" : "Already have an account?" }}
-        <button
-          type="button"
-          class="ml-1 text-accentpink font-semibold"
+      <!-- Switch Tabs -->
+      <div class="mt-8 text-center">
+        <p class="text-sm text-textSecondary mb-2">
+          {{ tab === 'login' ? "Don't have an account?" : "Already have an account?" }}
+        </p>
+        <ion-button
+          fill="clear"
+          class="text-accentpink font-semibold"
           (click)="setTab(tab === 'login' ? 'signup' : 'login')"
         >
-          {{ tab === 'login' ? 'Signup' : 'Login' }}
-        </button>
-      </p>
+          {{ tab === 'login' ? 'Sign Up' : 'Login' }}
+        </ion-button>
+      </div>
     </div>
   </div>
 </ion-content>

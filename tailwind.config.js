@@ -1,10 +1,45 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
-  content: ['./src/**/*.{html,ts,tsx,js,jsx}'],
+  content: [
+    './src/**/*.{html,ts,tsx,js,jsx}',
+    './src/**/*.component.html',
+    './src/**/*.page.html'
+  ],
   safelist: [
+    // Core backgrounds
     'bg-mint', 'bg-babyblue', 'bg-lightyellow',
-    'bg-peach', 'bg-lavender', 'bg-accentpink'
+    'bg-peach', 'bg-lavender', 'bg-accentpink',
+    'bg-white', 'bg-success',
+
+    // Text colors
+    'text-textPrimary', 'text-textSecondary', 'text-white',
+    'text-error', 'text-accentpink',
+
+    // Layout utilities
+    'min-h-screen', 'flex', 'items-center', 'justify-center',
+    'w-full', 'max-w-md', 'space-y-2', 'space-y-6',
+    'rounded-lg', 'rounded-2xl', 'rounded-full',
+
+    // Sizing
+    'w-20', 'h-20', 'h-12', 'p-4', 'p-8', 'mb-2', 'mb-4', 'mb-8', 'mt-1', 'mt-6', 'mt-8',
+
+    // Borders
+    'border-2', 'border-mint/30', 'border-error',
+
+    // Shadows and animations
+    'shadow-soft', 'shadow-pastel', 'animate-fadeIn',
+
+    // Interactive states
+    'hover:bg-success', 'transition-all', 'duration-300',
+
+    // Typography
+    'font-nunito', 'font-bold', 'font-semibold',
+    'text-xs', 'text-sm', 'text-base', 'text-2xl', 'text-4xl',
+    'text-center',
+
+    // Flexbox
+    'flex-col'
   ],
   theme: {
     extend: {
@@ -63,12 +98,12 @@ module.exports = {
       },
       keyframes: {
         fadeIn: {
-          '0%': { opacity: 0 },
-          '100%': { opacity: 1 },
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         slideUp: {
-          '0%': { transform: 'translateY(20px)', opacity: 0 },
-          '100%': { transform: 'translateY(0)', opacity: 1 },
+          '0%': { transform: 'translateY(20px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
         },
         bounceIn: {
           '0%, 20%, 40%, 60%, 80%, 100%': {
