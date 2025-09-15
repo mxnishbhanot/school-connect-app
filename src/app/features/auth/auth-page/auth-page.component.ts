@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+import { IonInput, IonItem, IonContent, IonSelect, IonButton, IonSelectOption } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-auth-page',
   templateUrl: './auth-page.component.html',
   styleUrls: ['./auth-page.component.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, IonicModule],
+  imports: [CommonModule, ReactiveFormsModule, IonInput, IonItem, IonContent, IonSelect, IonButton, IonSelectOption],
 })
 export class AuthPageComponent {
   tab: 'login' | 'signup' = 'login';
