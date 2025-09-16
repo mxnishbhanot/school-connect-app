@@ -1,0 +1,103 @@
+<!-- src/app/components/teacher-dashboard/gallery-tab/gallery-tab.component.html -->
+<ion-content class="bg-bgSoft font-nunito">
+  <!-- Simple Header -->
+  <div class="bg-peach p-6 mb-6 rounded-t-2xl shadow-soft">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-2xl font-bold text-textPrimary flex items-center gap-3">
+        <ion-icon name="images" class="text-3xl text-textPrimary"></ion-icon>
+        School Photo Gallery 📸
+      </h1>
+      <p class="text-textSecondary mt-2">Share memories from school events and activities</p>
+    </div>
+  </div>
+  <div class="max-w-4xl mx-auto p-4 space-y-6">
+    <!-- Upload Button -->
+    <button
+      (click)="openGalleryModal()"
+      class="w-full bg-peach hover:bg-warning text-textPrimary font-bold py-4 px-6 rounded-lg shadow-soft transition-all duration-300 flex items-center justify-center gap-3">
+      <ion-icon name="camera" class="text-2xl"></ion-icon>
+      <span class="text-lg">Upload New Photos</span>
+    </button>
+    <!-- Albums Grid -->
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div *ngFor="let album of albums" class="bg-white rounded-lg shadow-soft overflow-hidden hover:shadow-pastel transition-all duration-300">
+        <div class="aspect-square bg-babyblue flex items-center justify-center text-6xl">
+          📷
+        </div>
+        <div class="p-4">
+          <h3 class="font-bold text-textPrimary text-lg mb-1">{{ album.event }}</h3>
+          <p class="text-textSecondary text-sm flex items-center gap-1 mb-2">
+            <ion-icon name="calendar-outline"></ion-icon>
+            {{ album.date | date:'mediumDate' }}
+          </p>
+          <div class="flex items-center gap-2">
+            <span class="text-xs bg-lightyellow text-textPrimary px-2 py-1 rounded-full font-medium">
+              {{ album.images.length }} photos
+            </span>
+            <span class="text-2xl">🎉</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gallery Modal -->
+  <ion-modal [isOpen]="showGalleryModal" (didDismiss)="closeGalleryModal()">
+    <ng-template>
+      <div class="min-h-screen bg-black/50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-pastel w-full max-w-md mx-auto">
+          <div class="bg-peach p-6 rounded-t-2xl">
+            <h3 class="text-xl font-bold text-textPrimary flex items-center gap-3">
+              <span class="text-2xl">📸</span>
+              Upload Photos
+            </h3>
+          </div>
+          <form [formGroup]="galleryForm" (ngSubmit)="addAlbum()" class="p-6 space-y-4">
+            <div>
+              <label class="block text-sm font-bold text-textPrimary mb-2">Event Name</label>
+              <ion-input
+                formControlName="event"
+                placeholder="e.g., Sports Day 2025"
+                class="w-full p-3 border-2 border-peach/30 rounded-lg bg-lightyellow/40 focus:border-peach transition-all duration-200">
+              </ion-input>
+              <div *ngIf="isFormFieldInvalid('event')" class="text-error text-sm mt-1">{{ getFormFieldError('event') }}</div>
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-textPrimary mb-2">Event Date</label>
+              <ion-input
+                formControlName="date"
+                type="date"
+                class="w-full p-3 border-2 border-peach/30 rounded-lg bg-lightyellow/40 focus:border-peach transition-all duration-200">
+              </ion-input>
+              <div *ngIf="isFormFieldInvalid('date')" class="text-error text-sm mt-1">{{ getFormFieldError('date') }}</div>
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-textPrimary mb-2">Select Photos</label>
+              <input
+                formControlName="file"
+                type="file"
+                multiple
+                accept="image/*"
+                class="w-full p-3 border-2 border-peach/30 rounded-lg bg-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-peach file:text-textPrimary hover:file:bg-warning transition-all duration-200" />
+            </div>
+            <div class="flex gap-3 pt-4">
+              <button
+                type="submit"
+                class="flex-1 bg-success hover:bg-aqua text-white font-bold py-3 px-6 rounded-lg shadow-soft transition-all duration-300 flex items-center justify-center gap-2">
+                <ion-icon name="cloud-upload" class="text-lg"></ion-icon>
+                Upload
+              </button>
+              <button
+                type="button"
+                (click)="closeGalleryModal()"
+                class="flex-1 bg-lightyellow hover:bg-peach text-textPrimary font-bold py-3 px-6 rounded-lg transition-all duration-200 flex items-center justify-center gap-2">
+                <ion-icon name="close-circle" class="text-lg"></ion-icon>
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </ng-template>
+  </ion-modal>
+</ion-content>

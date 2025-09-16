@@ -10,8 +10,8 @@ export const AuthGuard: CanActivateFn = (route, state) => {
   if (role === 'teacher' && state.url !== '/teacher') {
     return router.parseUrl('/teacher');
   }
-  if (role === 'parent' && state.url !== '/parent') {
-    return router.parseUrl('/parent');
+  if (role === 'student' && state.url !== '/student') {
+    return router.parseUrl('/student');
   }
   if (role === 'admin' && state.url !== '/admin') {
     return router.parseUrl('/admin');

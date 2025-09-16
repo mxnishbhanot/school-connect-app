@@ -1,0 +1,78 @@
+<ion-content class="ion-no-padding">
+  <div class="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center p-4 relative overflow-hidden">
+
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute -top-4 -left-4 w-72 h-72 bg-white/5 rounded-full blur-3xl animate-pulse"></div>
+      <div class="absolute -bottom-4 -right-4 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-white/5 rounded-full blur-3xl animate-pulse delay-500"></div>
+    </div>
+
+    <div class="w-full max-w-sm mx-auto relative z-10">
+
+      <div class="text-center mb-12 animate-fade-in">
+        <div class="w-24 h-24 mx-auto mb-6 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-3xl flex items-center justify-center shadow-2xl transform rotate-3 hover:rotate-6 transition-transform duration-300">
+           <span class="text-4xl">🎓</span>
+        </div>
+
+        <h1 class="text-4xl font-black text-white mb-3 tracking-tight">
+          School
+          <span class="bg-gradient-to-r from-yellow-300 to-pink-300 bg-clip-text text-transparent">Connect</span>
+        </h1>
+
+        <p class="text-lg text-white/80 font-medium">Choose your journey</p>
+      </div>
+
+      <div class="space-y-6">
+
+        <div (click)="selectRole('teacher')"
+             class="group relative bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 cursor-pointer transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-2xl active:scale-95">
+
+          <div class="flex items-center space-x-6">
+
+            <div class="w-16 h-16 bg-gradient-to-r from-emerald-400 to-cyan-400 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+              <ion-icon name="person-circle-outline" class="text-3xl text-white"></ion-icon>
+            </div>
+
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold text-white mb-2">Teacher</h3>
+              <p class="text-white/70 text-sm font-medium">Inspire and educate students</p>
+            </div>
+
+            <div class="text-white/50 group-hover:text-white group-hover:translate-x-1 transition-all duration-300">
+              <ion-icon name="chevron-forward-outline" class="text-2xl"></ion-icon>
+            </div>
+          </div>
+
+          <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        </div>
+
+        <div (click)="selectRole('student')"
+             class="group relative bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 cursor-pointer transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-2xl active:scale-95">
+
+          <div class="flex items-center space-x-6">
+            <div class="w-16 h-16 bg-gradient-to-r from-purple-400 to-pink-400 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+              <ion-icon name="library-outline" class="text-3xl text-white"></ion-icon>
+            </div>
+
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold text-white mb-2">Student</h3>
+              <p class="text-white/70 text-sm font-medium">Learn and grow with peers</p>
+            </div>
+
+            <div class="text-white/50 group-hover:text-white group-hover:translate-x-1 transition-all duration-300">
+              <ion-icon name="chevron-forward-outline" class="text-2xl"></ion-icon>
+            </div>
+          </div>
+
+          <div class="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        </div>
+
+      </div>
+
+      <div class="text-center mt-12">
+        <p class="text-white/60 text-sm font-medium">Welcome to the future of education</p>
+      </div>
+
+    </div>
+  </div>
+</ion-content>
