@@ -1,4 +1,152 @@
-/* Custom pastel styles for TeacherDashboardPage */
-.font-nunito {
-	font-family: 'Nunito', 'Quicksand', sans-serif;
+// teacher-dashboard-page.component.scss
+
+// Custom animations for fade-in effect
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+// Tab button hover effects
+.tab-button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+// Content cards hover effects
+.content-card {
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+}
+
+// Custom scrollbar styling
+.overflow-y-auto {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+  }
+}
+
+// Button press effects
+button {
+  transition: all 0.2s ease;
+
+  &:active {
+    transform: scale(0.96);
+  }
+}
+
+// Glass morphism enhancement
+.backdrop-blur-xl {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.backdrop-blur-sm {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+// Mobile responsiveness
+@media (max-width: 480px) {
+  .dashboard-container {
+    padding: 1rem;
+  }
+
+  .tab-navigation {
+    padding: 0.5rem;
+  }
+
+  .tab-button {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .content-area {
+    padding: 1rem;
+  }
+
+  .grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Tablet responsiveness
+@media (min-width: 768px) and (max-width: 1024px) {
+  .content-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+// Dark mode support
+@media (prefers-color-scheme: dark) {
+  .content-card {
+    background: rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+// Loading state animation (for future use)
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.pulse-slow {
+  animation: pulse-slow 2s ease-in-out infinite;
+}
+
+// Success/Error state colors
+.success-state {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.error-state {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.warning-state {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.info-state {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
 }

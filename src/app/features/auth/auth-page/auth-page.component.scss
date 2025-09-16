@@ -1,123 +1,59 @@
-// auth-page.component.scss
 
-// Custom animations for fade-in effect
+/* Custom fade-in animation */
 @keyframes fade-in {
-  0% {
+  from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
   }
-  100% {
+  to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
 .animate-fade-in {
-  animation: fade-in 1s ease-out forwards;
+  animation: fade-in 0.6s ease-out;
 }
 
-// Custom form input styling
-input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+/* Enhanced focus states for accessibility */
+input:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-select {
-  background-image: none;
-}
-
-select:focus {
-  outline: none;
-}
-
-// Custom button hover effects
-button:not(:disabled):hover {
-  transform: translateY(-2px);
-}
-
-button:not(:disabled):active {
-  transform: translateY(0);
-}
-
-// Enhanced disabled state
-button:disabled {
-  transform: none !important;
-  filter: grayscale(0.5);
-}
-
-// Tab switcher animation
-.tab-switcher button {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-// Form field focus effects
-input:focus,
-select:focus {
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
-}
-
-// Error state styling
-.border-red-400 {
-  border-color: #f87171 !important;
-  box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.1);
-}
-
-// Mobile responsiveness
-@media (max-width: 480px) {
-  .auth-container {
-    padding: 1rem;
-  }
-
-  .auth-card {
-    padding: 1.5rem;
-  }
-
-  .logo-container {
-    width: 4rem;
-    height: 4rem;
-  }
-
-  .title {
-    font-size: 1.5rem;
-  }
-
-  .form-input {
-    padding: 0.75rem 1rem;
-  }
-}
-
-// Dark mode optimizations
-@media (prefers-color-scheme: dark) {
-  .backdrop-blur-xl {
-    background: rgba(0, 0, 0, 0.2);
-  }
-
-  input,
-  select {
-    background: rgba(255, 255, 255, 0.1);
-  }
-}
-
-// Loading state (for future use)
-.loading {
-  opacity: 0.7;
-  pointer-events: none;
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 20px;
-    height: 20px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-top: 2px solid white;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    transform: translate(-50%, -50%);
-  }
-}
-
+/* Loading spinner animation */
 @keyframes spin {
-  0% { transform: translate(-50%, -50%) rotate(0deg); }
-  100% { transform: translate(-50%, -50%) rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Button hover effects */
+button[type="submit"] {
+  outline: none;
+  border: none;
+}
+
+button[type="submit"]:focus-visible {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+/* Card hover effect */
+ion-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+ion-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode enhancements */
+@media (prefers-color-scheme: dark) {
+  input::placeholder {
+    color: rgb(156, 163, 175);
+  }
 }

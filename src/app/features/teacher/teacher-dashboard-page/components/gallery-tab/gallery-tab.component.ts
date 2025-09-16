@@ -15,7 +15,7 @@ import {
   standalone: true,
   imports: [
    IonContent, IonIcon, IonModal, IonInput,
-    CommonModule, ReactiveFormsModule, FormsModule
+    CommonModule, ReactiveFormsModule
   ],
 })
 export class GalleryTabComponent {

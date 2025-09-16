@@ -1,100 +1,176 @@
-// src/app/components/teacher-dashboard/homework-tab/homework-tab.component.ts
-import { Component, OnInit } from '@angular/core';
+// homework-tab.component.ts
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { IonContent, IonIcon, IonModal, IonInput, IonTextarea } from '@ionic/angular/standalone';
+import { FormsModule } from '@angular/forms';
+import { IonFab, IonFabButton, IonIcon, IonModal, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonInput, IonTextarea, IonItem, IonLabel, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import {
-  book, addCircleOutline, pencilOutline, trashOutline, calendarOutline,
-  checkmarkCircle,
-  closeCircle
-} from 'ionicons/icons';
-import { HomeworkService } from 'src/app/core/services/homework.service';
-import { Homework } from 'src/app/models/homework.model';
+import { add, pencil, trash, close } from 'ionicons/icons';
+
+interface Homework {
+  id: number;
+  title: string;
+  description: string;
+  dueDate: string;
+  className: string;
+  status: 'pending' | 'completed';
+  createdAt: Date;
+}
 
 @Component({
   selector: 'app-homework-tab',
-  templateUrl: './homework-tab.component.html',
-  styleUrls: ['./homework-tab.component.scss'],
   standalone: true,
   imports: [
-    IonContent, IonIcon, IonModal, IonInput, IonTextarea,
-    CommonModule, ReactiveFormsModule
+    CommonModule,
+    FormsModule,
+    IonFab,
+    IonFabButton,
+    IonIcon,
+    IonModal,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonButton,
+    IonInput,
+    IonTextarea,
+    IonItem,
+    IonLabel,
+    IonSelect,
+    IonSelectOption
   ],
+  templateUrl: './homework-tab.component.html',
+  styleUrls: ['./homework-tab.component.scss']
 })
-export class HomeworkTabComponent implements OnInit {
-  showHomeworkModal = false;
-  homeworkForm: FormGroup;
-  homework$: Observable<Homework[]> | undefined;
+export class HomeworkTabComponent {
+  @Input() maxHeight: number = 500;
 
-  constructor(
-    private fb: FormBuilder,
-    private homeworkService: HomeworkService // Inject service
-  ) {
-    addIcons({ book, addCircleOutline, pencilOutline, trashOutline, calendarOutline, checkmarkCircle, closeCircle });
-    this.homeworkForm = this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(3)]],
-      description: ['', [Validators.required, Validators.minLength(10)]],
-      class: ['', [Validators.required]]
-    });
+  homeworkList: Homework[] = [
+    {
+      id: 1,
+      title: "Mathematics - Chapter 5",
+      description: "Complete exercises 1-10 on page 45. Focus on algebraic equations.",
+      dueDate: "2024-09-20",
+      className: "Class 5A",
+      status: "pending",
+      createdAt: new Date('2024-09-15')
+    },
+    {
+      id: 2,
+      title: "Science Project",
+      description: "Solar system model presentation with detailed explanation of planets.",
+      dueDate: "2024-09-25",
+      className: "Class 5B",
+      status: "pending",
+      createdAt: new Date('2024-09-14')
+    },
+    {
+      id: 3,
+      title: "English Essay",
+      description: "Write a 500-word essay on 'My Future Dreams'",
+      dueDate: "2024-09-18",
+      className: "Class 6A",
+      status: "completed",
+      createdAt: new Date('2024-09-10')
+    }
+  ];
+
+  isModalOpen = false;
+  editingHomework: Homework | null = null;
+  formData = {
+    title: '',
+    description: '',
+    dueDate: '',
+    className: '',
+    status: 'pending' as 'pending' | 'completed'
+  };
+
+  constructor() {
+    addIcons({ add, pencil, trash, close });
   }
 
-  ngOnInit() {
-    this.homework$ = this.homeworkService.homework$;
+  trackByFn(index: number, item: Homework): number {
+    return item.id;
   }
 
-  openHomeworkModal() {
-    this.showHomeworkModal = true;
-  }
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
 
-  closeHomeworkModal() {
-    this.showHomeworkModal = false;
-    this.homeworkForm.reset();
-  }
-
-  addHomework() {
-    if (this.homeworkForm.valid) {
-      const formValue = this.homeworkForm.value;
-      const newHomework: Homework = {
-        id: Math.random().toString(36).substring(2, 15),
-        title: formValue.title,
-        description: formValue.description,
-        dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-        assignedBy: 'Current Teacher',
-        classId: formValue.class
-      };
-      this.homeworkService.addHomework(newHomework);
-      this.homeworkForm.reset();
-      this.closeHomeworkModal();
-      console.log('Homework added successfully!');
+    if (date.toDateString() === today.toDateString()) {
+      return 'Today';
+    } else if (date.toDateString() === tomorrow.toDateString()) {
+      return 'Tomorrow';
     } else {
-      Object.keys(this.homeworkForm.controls).forEach(key => {
-        const control = this.homeworkForm.get(key);
-        control?.markAsTouched();
-      });
+      return date.toLocaleDateString();
     }
   }
 
-  deleteHomework(id: string) {
-    if (confirm('Are you sure you want to delete this homework?')) {
-      this.homeworkService.removeHomework(id);
-      console.log('Homework deleted successfully!');
+  openModal() {
+    this.resetForm();
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+    this.editingHomework = null;
+    this.resetForm();
+  }
+
+  resetForm() {
+    this.formData = {
+      title: '',
+      description: '',
+      dueDate: '',
+      className: '',
+      status: 'pending'
+    };
+  }
+
+  editHomework(homework: Homework) {
+    this.editingHomework = homework;
+    this.formData = {
+      title: homework.title,
+      description: homework.description,
+      dueDate: homework.dueDate,
+      className: homework.className,
+      status: homework.status
+    };
+    this.isModalOpen = true;
+  }
+
+  deleteHomework(id: number) {
+    if (confirm('Are you sure you want to delete this homework assignment?')) {
+      this.homeworkList = this.homeworkList.filter(h => h.id !== id);
     }
   }
 
-  // Utility Methods (could be moved to a shared utility service)
-  isFormFieldInvalid(fieldName: string): boolean {
-    const field = this.homeworkForm.get(fieldName);
-    return !!(field?.invalid && field.touched);
-  }
-
-  getFormFieldError(fieldName: string): string {
-    const field = this.homeworkForm.get(fieldName);
-    if (field?.errors && field.touched) {
-      if (field.errors['required']) return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required`;
-      if (field.errors['minlength']) return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is too short`;
+  saveHomework() {
+    if (!this.formData.title || !this.formData.description || !this.formData.dueDate || !this.formData.className) {
+      alert('Please fill in all required fields');
+      return;
     }
-    return '';
+
+    if (this.editingHomework) {
+      // Update existing homework
+      const index = this.homeworkList.findIndex(h => h.id === this.editingHomework!.id);
+      if (index !== -1) {
+        this.homeworkList[index] = {
+          ...this.editingHomework,
+          ...this.formData
+        };
+      }
+    } else {
+      // Add new homework
+      const newHomework: Homework = {
+        id: Math.max(...this.homeworkList.map(h => h.id), 0) + 1,
+        ...this.formData,
+        createdAt: new Date()
+      };
+      this.homeworkList.unshift(newHomework);
+    }
+
+    this.closeModal();
   }
 }

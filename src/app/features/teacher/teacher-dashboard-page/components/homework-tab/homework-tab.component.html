@@ -1,125 +1,179 @@
-<!-- src/app/components/teacher-dashboard/homework-tab/homework-tab.component.html -->
-<ion-content class="bg-bgSoft font-nunito">
-  <!-- Simple Header -->
-  <div class="bg-mint p-6 mb-6 rounded-t-2xl shadow-soft">
-    <div class="max-w-4xl mx-auto">
-      <h1 class="text-2xl font-bold text-textPrimary flex items-center gap-3">
-        <ion-icon name="book" class="text-3xl text-textPrimary"></ion-icon>
-        Homework for Students 📚
-      </h1>
-      <p class="text-textSecondary mt-2">Manage homework assignments for your class</p>
-    </div>
-  </div>
-  <div class="max-w-4xl mx-auto p-4 space-y-6">
-    <!-- Add Button -->
-    <button
-      (click)="openHomeworkModal()"
-      class="w-full bg-mint hover:bg-success text-textPrimary font-bold py-4 px-6 rounded-lg shadow-soft transition-all duration-300 flex items-center justify-center gap-3">
-      <ion-icon name="add-circle-outline" class="text-2xl"></ion-icon>
-      <span class="text-lg">Add New Homework Assignment</span>
-    </button>
-    <!-- Homework Cards -->
-    <div class="space-y-4">
-      <div *ngIf="(homework$ | async)?.length === 0" class="bg-white rounded-lg shadow-soft p-8 text-center">
-        <div class="text-6xl mb-4">📝</div>
-        <h3 class="text-lg font-bold text-textPrimary mb-2">No Homework Yet!</h3>
-        <p class="text-textSecondary">Click the button above to add your first homework assignment</p>
-      </div>
-      <div *ngFor="let hw of (homework$ | async)" class="bg-white rounded-lg shadow-soft p-6 border-l-4 border-mint hover:shadow-pastel transition-all duration-300">
-        <div class="flex justify-between items-start mb-4">
-          <div class="flex items-start gap-4">
-            <div class="w-12 h-12 bg-lightyellow rounded-lg flex items-center justify-center text-2xl">
-              📖
-            </div>
-            <div>
-              <h3 class="font-bold text-textPrimary text-lg">{{ hw.title }}</h3>
-              <p class="text-textSecondary mt-1">{{ hw.description }}</p>
-            </div>
-          </div>
-          <div class="flex gap-2">
-            <!-- Edit button logic would go here -->
-            <button class="w-10 h-10 bg-babyblue hover:bg-mint rounded-lg flex items-center justify-center transition-all duration-200" title="Edit" disabled>
-              <ion-icon name="pencil-outline" class="text-textPrimary"></ion-icon>
-            </button>
-            <button
-              (click)="deleteHomework(hw.id)"
-              class="w-10 h-10 bg-peach hover:bg-error rounded-lg flex items-center justify-center transition-all duration-200"
-              title="Delete">
-              <ion-icon name="trash-outline" class="text-textPrimary"></ion-icon>
-            </button>
-          </div>
-        </div>
-        <div class="flex items-center justify-between text-sm">
-          <span class="bg-mint text-textPrimary px-3 py-1 rounded-full font-medium">
-            Class: {{ hw.classId }}
-          </span>
-          <span class="text-textSecondary flex items-center gap-1">
-            <ion-icon name="calendar-outline"></ion-icon>
-            Due: {{ hw.dueDate | date:'shortDate' }}
-          </span>
+ <div class="h-full p-6 relative">
+      <!-- Header -->
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold text-white">📚 Homework Management</h2>
+        <div class="text-white/70 text-sm">
+          {{homeworkList.length}} assignments
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- Homework Modal -->
-  <ion-modal [isOpen]="showHomeworkModal" (didDismiss)="closeHomeworkModal()">
-    <ng-template>
-      <div class="min-h-screen bg-black/50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-pastel w-full max-w-md mx-auto">
-          <div class="bg-mint p-6 rounded-t-2xl">
-            <h3 class="text-xl font-bold text-textPrimary flex items-center gap-3">
-              <span class="text-2xl">➕</span>
-              Add New Homework
-            </h3>
+      <!-- Homework List -->
+      <div class="space-y-4 overflow-y-auto" [style.max-height.px]="maxHeight">
+        <div
+          *ngFor="let homework of homeworkList; trackBy: trackByFn"
+          class="bg-white/20 backdrop-blur-sm rounded-2xl p-4 border border-white/30 hover:bg-white/25 transition-all duration-300 group">
+
+          <div class="flex items-start justify-between">
+            <div class="flex-1">
+              <h3 class="text-white font-semibold mb-2">{{homework.title}}</h3>
+              <p class="text-white/70 text-sm mb-3">{{homework.description}}</p>
+              <div class="flex items-center space-x-4 text-xs mb-2">
+                <span class="text-yellow-300">📅 Due: {{formatDate(homework.dueDate)}}</span>
+                <span class="text-blue-300">👥 {{homework.className}}</span>
+                <span
+                  [class]="homework.status === 'completed' ? 'text-green-300' : 'text-orange-300'">
+                  {{homework.status === 'completed' ? '✅ Completed' : '⏳ Pending'}}
+                </span>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              <button
+                (click)="editHomework(homework)"
+                class="p-2 bg-blue-500/20 hover:bg-blue-500/40 rounded-lg transition-colors duration-200">
+                <ion-icon name="pencil" class="text-blue-300 text-sm"></ion-icon>
+              </button>
+              <button
+                (click)="deleteHomework(homework.id)"
+                class="p-2 bg-red-500/20 hover:bg-red-500/40 rounded-lg transition-colors duration-200">
+                <ion-icon name="trash" class="text-red-300 text-sm"></ion-icon>
+              </button>
+            </div>
           </div>
-          <form [formGroup]="homeworkForm" (ngSubmit)="addHomework()" class="p-6 space-y-4">
-            <div>
-              <label class="block text-sm font-bold text-textPrimary mb-2">Homework Title</label>
-              <ion-input
-                formControlName="title"
-                placeholder="e.g., Math Chapter 5 Questions"
-                class="w-full p-3 border-2 border-mint/30 rounded-lg bg-lightyellow/40 focus:border-mint transition-all duration-200">
-              </ion-input>
-              <div *ngIf="isFormFieldInvalid('title')" class="text-error text-sm mt-1">{{ getFormFieldError('title') }}</div>
-            </div>
-            <div>
-              <label class="block text-sm font-bold text-textPrimary mb-2">Description</label>
-              <ion-textarea
-                formControlName="description"
-                placeholder="Describe what students need to do..."
-                rows="3"
-                class="w-full p-3 border-2 border-mint/30 rounded-lg bg-lightyellow/40 focus:border-mint transition-all duration-200">
-              </ion-textarea>
-              <div *ngIf="isFormFieldInvalid('description')" class="text-error text-sm mt-1">{{ getFormFieldError('description') }}</div>
-            </div>
-            <div>
-              <label class="block text-sm font-bold text-textPrimary mb-2">Class</label>
-              <ion-input
-                formControlName="class"
-                placeholder="e.g., 5th Grade A"
-                class="w-full p-3 border-2 border-mint/30 rounded-lg bg-lightyellow/40 focus:border-mint transition-all duration-200">
-              </ion-input>
-              <div *ngIf="isFormFieldInvalid('class')" class="text-error text-sm mt-1">{{ getFormFieldError('class') }}</div>
-            </div>
-            <div class="flex gap-3 pt-4">
-              <button
-                type="submit"
-                class="flex-1 bg-success hover:bg-mint text-white font-bold py-3 px-6 rounded-lg shadow-soft transition-all duration-300 flex items-center justify-center gap-2">
-                <ion-icon name="checkmark-circle" class="text-lg"></ion-icon>
-                Add Homework
-              </button>
-              <button
-                type="button"
-                (click)="closeHomeworkModal()"
-                class="flex-1 bg-lightyellow hover:bg-peach text-textPrimary font-bold py-3 px-6 rounded-lg transition-all duration-200 flex items-center justify-center gap-2">
-                <ion-icon name="close-circle" class="text-lg"></ion-icon>
-                Cancel
-              </button>
-            </div>
-          </form>
+        </div>
+
+        <!-- Empty State -->
+        <div *ngIf="homeworkList.length === 0" class="text-center py-12">
+          <div class="text-6xl mb-4">📚</div>
+          <h3 class="text-white font-semibold mb-2">No homework assigned yet</h3>
+          <p class="text-white/60">Tap the + button to create your first homework assignment</p>
         </div>
       </div>
-    </ng-template>
-  </ion-modal>
-</ion-content>
+
+      <!-- FAB Button -->
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button
+          (click)="openModal()"
+          class="bg-gradient-to-r from-emerald-500 to-cyan-500 shadow-2xl">
+          <ion-icon name="add" class="text-white text-2xl"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+
+      <!-- Add/Edit Modal -->
+      <ion-modal
+        [isOpen]="isModalOpen"
+        (didDismiss)="closeModal()"
+        class="homework-modal">
+
+        <ng-template>
+          <ion-header class="ion-no-border">
+            <ion-toolbar class="bg-gradient-to-r from-emerald-500 to-cyan-500">
+              <ion-title class="text-white font-bold">
+                {{editingHomework ? 'Edit Homework' : 'Add New Homework'}}
+              </ion-title>
+              <ion-button
+                slot="end"
+                fill="clear"
+                (click)="closeModal()"
+                class="text-white">
+                <ion-icon name="close"></ion-icon>
+              </ion-button>
+            </ion-toolbar>
+          </ion-header>
+
+          <ion-content class="bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500">
+            <div class="p-6">
+              <form (ngSubmit)="saveHomework()" class="space-y-6">
+
+                <!-- Title -->
+                <div>
+                  <ion-item class="bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30 mb-2">
+                    <ion-label position="stacked" class="text-white font-semibold">Title</ion-label>
+                    <ion-input
+                      [(ngModel)]="formData.title"
+                      name="title"
+                      placeholder="Enter homework title"
+                      class="text-white"
+                      required>
+                    </ion-input>
+                  </ion-item>
+                </div>
+
+                <!-- Description -->
+                <div>
+                  <ion-item class="bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30 mb-2">
+                    <ion-label position="stacked" class="text-white font-semibold">Description</ion-label>
+                    <ion-textarea
+                      [(ngModel)]="formData.description"
+                      name="description"
+                      placeholder="Enter homework description"
+                      rows="3"
+                      class="text-white"
+                      required>
+                    </ion-textarea>
+                  </ion-item>
+                </div>
+
+                <!-- Due Date -->
+                <div>
+                  <ion-item class="bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30 mb-2">
+                    <ion-label position="stacked" class="text-white font-semibold">Due Date</ion-label>
+                    <ion-input
+                      type="date"
+                      [(ngModel)]="formData.dueDate"
+                      name="dueDate"
+                      class="text-white"
+                      required>
+                    </ion-input>
+                  </ion-item>
+                </div>
+
+                <!-- Class Selection -->
+                <div>
+                  <ion-item class="bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30 mb-2">
+                    <ion-label position="stacked" class="text-white font-semibold">Class</ion-label>
+                    <ion-select
+                      [(ngModel)]="formData.className"
+                      name="className"
+                      placeholder="Select class"
+                      class="text-white"
+                      required>
+                      <ion-select-option value="Class 5A">Class 5A</ion-select-option>
+                      <ion-select-option value="Class 5B">Class 5B</ion-select-option>
+                      <ion-select-option value="Class 6A">Class 6A</ion-select-option>
+                      <ion-select-option value="Class 6B">Class 6B</ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                </div>
+
+                <!-- Status -->
+                <div>
+                  <ion-item class="bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30 mb-6">
+                    <ion-label position="stacked" class="text-white font-semibold">Status</ion-label>
+                    <ion-select
+                      [(ngModel)]="formData.status"
+                      name="status"
+                      placeholder="Select status"
+                      class="text-white"
+                      required>
+                      <ion-select-option value="pending">Pending</ion-select-option>
+                      <ion-select-option value="completed">Completed</ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                </div>
+
+                <!-- Submit Button -->
+                <ion-button
+                  type="submit"
+                  expand="block"
+                  class="bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-bold py-4 rounded-2xl shadow-2xl">
+                  {{editingHomework ? 'Update Homework' : 'Create Homework'}}
+                </ion-button>
+
+              </form>
+            </div>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+    </div>

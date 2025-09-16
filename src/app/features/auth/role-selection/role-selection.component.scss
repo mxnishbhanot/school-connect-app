@@ -1,73 +1,32 @@
 @keyframes fade-in {
-  0% {
+  from {
     opacity: 0;
     transform: translateY(20px);
   }
-  100% {
+  to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
 .animate-fade-in {
-  animation: fade-in 0.8s ease-out forwards;
+  animation: fade-in 0.6s ease-out;
 }
 
-@keyframes custom-pulse {
-  0%, 100% {
-    opacity: 0.4;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.6;
-    transform: scale(1.05);
-  }
+/* Ensure proper card styling */
+.role-card {
+  position: relative;
+  overflow: hidden;
 }
 
-.role-card:nth-child(1) {
-  animation-delay: 0.2s;
+/* Custom focus states for accessibility */
+.role-card:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
 }
 
-.role-card:nth-child(2) {
-  animation-delay: 0.4s;
-}
-
-.group:hover .group-hover\:scale-110 {
-  transform: scale(1.1);
-}
-
-.group:hover .group-hover\:translate-x-1 {
-  transform: translateX(4px);
-}
-
-.gradient-text {
-  background: linear-gradient(135deg, #fbbf24, #f59e0b, #ec4899);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-@media (max-width: 480px) {
-  .main-container {
-    padding: 1rem;
-  }
-
-  .role-card {
-    padding: 1.5rem;
-  }
-
-  .icon-container {
-    width: 3.5rem;
-    height: 3.5rem;
-  }
-
-  .card-title {
-    font-size: 1.25rem;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .backdrop-blur-xl {
-    background: rgba(0, 0, 0, 0.2);
-  }
+/* Smooth card interactions */
+.role-card {
+  transform-origin: center;
+  will-change: transform;
 }
