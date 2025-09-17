@@ -33,9 +33,8 @@ export class RoleSelectionComponent {
   }
 
   selectRole(role: 'teacher' | 'student') {
-    // Note: Using in-memory storage instead of localStorage for Claude.ai compatibility
-    // In your actual app, you can use localStorage.setItem('role', role);
     setTimeout(() => {
+      localStorage.setItem('role', role);
       if (role === 'teacher') {
         this.navCtrl.navigateForward('/auth', { state: { role: 'teacher' } });
       } else {

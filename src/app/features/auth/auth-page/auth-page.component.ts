@@ -73,7 +73,6 @@ export class AuthPageComponent {
       // Simulate API call
       setTimeout(() => {
         this.isLoading = false;
-
         if (this.selectedRole === 'teacher') {
           this.navCtrl.navigateForward('/teacher');
         } else if (this.selectedRole === 'student') {
