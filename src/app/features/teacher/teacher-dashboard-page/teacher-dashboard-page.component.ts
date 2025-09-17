@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonContent, IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
+import { NavController } from '@ionic/angular';
 import {
   bookOutline,
   imagesOutline,
@@ -9,18 +10,20 @@ import {
   settingsOutline
 } from 'ionicons/icons';
 import { HomeworkTabComponent } from "./components/homework-tab/homework-tab.component";
+import { GalleryTabComponent } from './components/gallery-tab/gallery-tab.component';
+import { AnnouncementsTabComponent } from './components/announcements-tab/announcements-tab.component';
 
 @Component({
   selector: 'app-teacher-dashboard-page',
   standalone: true,
-  imports: [CommonModule, IonContent, IonIcon, HomeworkTabComponent],
+  imports: [CommonModule, IonContent, IonIcon, HomeworkTabComponent, GalleryTabComponent, AnnouncementsTabComponent],
   templateUrl: './teacher-dashboard-page.component.html',
   styleUrls: ['./teacher-dashboard-page.component.scss']
 })
 export class TeacherDashboardPageComponent {
   tab: 'homework' | 'gallery' | 'announcements' = 'homework';
 
-  constructor() {
+  constructor(private navController: NavController) {
     addIcons({
       bookOutline,
       imagesOutline,
@@ -34,24 +37,9 @@ export class TeacherDashboardPageComponent {
     console.log('Tab switched to:', tab);
   }
 
-  // Sample methods for different actions
-  addHomework() {
-    console.log('Add homework clicked');
-    // Implement add homework functionality
-  }
-
-  uploadPhoto() {
-    console.log('Upload photo clicked');
-    // Implement photo upload functionality
-  }
-
-  newAnnouncement() {
-    console.log('New announcement clicked');
-    // Implement new announcement functionality
-  }
-
   openSettings() {
     console.log('Settings clicked');
+    this.navController.navigateForward('/settings');
     // Implement settings functionality
   }
 }

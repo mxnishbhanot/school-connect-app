@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { IonContent, IonButton, IonIcon, IonInput, IonCard, IonHeader, IonToolbar, IonTitle, IonButtons } from '@ionic/angular/standalone';
+import { IonContent, IonIcon, IonCard } from '@ionic/angular/standalone';
 import { NavController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import {
@@ -24,7 +24,6 @@ import {
     CommonModule,
     ReactiveFormsModule,
     IonContent,
-    IonButton,
     IonIcon,
     IonCard,
   ],

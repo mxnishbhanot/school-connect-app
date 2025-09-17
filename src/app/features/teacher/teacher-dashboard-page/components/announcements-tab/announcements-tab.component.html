@@ -1,5 +1,5 @@
 <!-- src/app/components/teacher-dashboard/announcements-tab/announcements-tab.component.html -->
-<ion-content class="bg-bgSoft font-nunito">
+<ion-content class="bg-bgSoft font-nunito h-full">
   <!-- Simple Header -->
   <div class="bg-lavender p-6 mb-6 rounded-t-2xl shadow-soft">
     <div class="max-w-4xl mx-auto">
@@ -18,7 +18,7 @@
       <ion-icon name="megaphone" class="text-2xl"></ion-icon>
       <span class="text-lg">Make New Announcement</span>
     </button>
-    <div class="grid gap-6 lg:grid-cols-2">
+    <div class="grid gap-6 lg:grid-cols-2" [style.max-height.px]="500" style="overflow-y: auto;">
       <!-- Announcements List -->
       <div class="space-y-4">
         <h2 class="text-xl font-bold text-textPrimary flex items-center gap-2">
