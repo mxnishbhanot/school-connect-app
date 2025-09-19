@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { IonIcon, IonModal, IonHeader, IonContent, IonButton, IonTitle, IonToolbar, IonButtons, IonLabel, IonSelect, IonSelectOption, IonDatetime, IonDatetimeButton, IonSpinner } from '@ionic/angular/standalone';
+import { IonIcon, IonModal, IonHeader, IonContent, IonButton, IonTitle, IonToolbar, IonButtons, IonLabel, IonSelect, IonSelectOption, IonDatetime, IonDatetimeButton, IonSpinner, IonInput, IonTextarea } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   addOutline,
@@ -27,16 +27,12 @@ interface Homework {
 @Component({
   selector: 'app-homework-tab',
   standalone: true,
-  imports: [IonSpinner, IonButtons, IonTitle, IonButton, IonHeader,
+  imports: [IonTextarea, IonInput,
     CommonModule,
     ReactiveFormsModule,
     IonIcon,
     IonModal,
-    IonButton,
-    IonLabel,
-    IonSelect,
-    IonSelectOption,
-    IonDatetime, IonDatetimeButton
+    IonDatetime, IonSelectOption
   ],
   templateUrl: './homework-tab.component.html',
   styleUrls: ['./homework-tab.component.scss']
@@ -72,6 +68,12 @@ export class HomeworkTabComponent {
       status: "completed",
       createdAt: new Date('2024-09-10')
     }
+  ];
+  classes = [
+    { id: '1', name: 'Mathematics' },
+    { id: '2', name: 'Science' },
+    { id: '3', name: 'History' },
+    { id: '4', name: 'English' },
   ];
 
   modalForm: FormGroup;

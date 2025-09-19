@@ -22,3 +22,10 @@
 body {
   font-family: 'Nunito', 'Quicksand', sans-serif;
 }
+
+.ion-input-padding {
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+}

@@ -2,3 +2,11 @@
 .font-nunito {
 	font-family: 'Nunito', 'Quicksand', sans-serif;
 }
+
+ion-input.custom-input {
+  --padding-start: 12px; /* left padding */
+  --padding-end: 12px;   /* right padding */
+  --padding-top: 10px;   /* top padding */
+  --padding-bottom: 10px; /* bottom padding */
+  --color: #1f2937;
+}
