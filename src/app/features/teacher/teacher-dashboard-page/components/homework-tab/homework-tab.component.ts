@@ -13,6 +13,7 @@ import {
   saveOutline,
   addCircleOutline
 } from 'ionicons/icons';
+import { MdlHomeworkComponent } from 'src/app/shared/components/mdl-homework/mdl-homework.component';
 
 interface Homework {
   id: number;
@@ -21,18 +22,17 @@ interface Homework {
   dueDate: string;
   className: string;
   status: 'pending' | 'completed';
-  createdAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 @Component({
   selector: 'app-homework-tab',
   standalone: true,
-  imports: [IonTextarea, IonInput,
+  imports: [
     CommonModule,
     ReactiveFormsModule,
-    IonIcon,
-    IonModal,
-    IonDatetime, IonSelectOption
+    IonIcon, MdlHomeworkComponent
   ],
   templateUrl: './homework-tab.component.html',
   styleUrls: ['./homework-tab.component.scss']
@@ -69,7 +69,7 @@ export class HomeworkTabComponent {
       createdAt: new Date('2024-09-10')
     }
   ];
-  classes = [
+  classesList = [
     { id: '1', name: 'Mathematics' },
     { id: '2', name: 'Science' },
     { id: '3', name: 'History' },

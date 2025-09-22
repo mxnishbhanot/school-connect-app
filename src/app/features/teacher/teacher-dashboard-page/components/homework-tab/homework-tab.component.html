@@ -5,7 +5,7 @@
   <div class="flex-shrink-0 pb-4">
     <div class="text-center space-y-3 animate-fade-in">
       <div class="flex items-center justify-center space-x-2">
-        <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center transform rotate-3">
+        <div class="w-8 h-8 bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-md dark:shadow-lg rounded-lg flex items-center justify-center transform rotate-3">
           <ion-icon name="book-outline" class="text-white text-lg"></ion-icon>
         </div>
         <h1 class="text-xl font-bold text-gray-900 dark:text-white">
@@ -107,113 +107,6 @@
   </div>
 
   <!-- Mobile Modal -->
-<ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()">
-  <ng-template>
-    <div class="min-h-screen bg-black/50 dark:bg-black/70 flex items-center justify-center p-4">
-      <div
-        class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-md mx-auto overflow-hidden transform transition-all duration-300 scale-95 animate-in fade-in-90 zoom-in-90">
-
-        <!-- Modal Header -->
-        <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-6 text-center">
-          <h3 class="text-xl font-bold text-white flex items-center justify-center gap-3">
-            <ion-icon name="book" class="text-2xl"></ion-icon>
-            Add Homework
-          </h3>
-        </div>
-
-        <!-- Modal Form -->
-        <div class="p-6 space-y-5">
-          <form (ngSubmit)="saveHomework()" class="space-y-5" [formGroup]="modalForm">
-
-            <!-- Title -->
-            <div>
-              <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Title</label>
-              <ion-input
-                type="text"
-                formControlName="title"
-                placeholder="Enter homework title"
-                class="custom-input w-full p-3 rounded-xl bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                required>
-              </ion-input>
-            </div>
-
-            <!-- Description -->
-            <div>
-              <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Description</label>
-              <ion-textarea
-                formControlName="description"
-                placeholder="Enter homework description"
-                class="custom-input w-full p-3 rounded-xl bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                rows="3">
-              </ion-textarea>
-            </div>
-
-            <!-- Due Date -->
-            <div>
-              <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Due Date</label>
-              <ion-datetime
-                presentation="date-time"
-                formControlName="dueDate"
-                class="custom-input w-full rounded-xl bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
-              </ion-datetime>
-            </div>
-
-            <!-- Due Time -->
-            <div>
-              <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Due Time</label>
-              <!-- <ion-datetime
-                presentation="time"
-                formControlName="dueTime"
-                preferWheel="false"></ion-datetime> -->
-                <!-- <ion-datetime presentation="time"></ion-datetime> -->
-            </div>
-
-            <!-- Select Class Dropdown -->
-            <div>
-              <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Select Class</label>
-              <ion-select
-                placeholder="Choose class"
-                formControlName="className"
-                class="custom-input w-full rounded-xl bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                interface="popover">
-                <ion-select-option *ngFor="let cls of classes" [value]="cls.id">{{ cls.name }}</ion-select-option>
-              </ion-select>
-            </div>
-
-            <!-- Status Dropdown -->
-            <div>
-              <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Status</label>
-              <ion-select
-                placeholder="Choose status"
-                formControlName="status"
-                class="custom-input w-full rounded-xl bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                interface="popover">
-                <ion-select-option value="pending">Pending</ion-select-option>
-                <ion-select-option value="completed">Completed</ion-select-option>
-              </ion-select>
-            </div>
-
-            <!-- Modal Buttons -->
-            <div class="flex gap-3 pt-4">
-              <button
-                type="submit"
-                class="flex-1 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold py-3 px-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 transform hover:scale-[1.02] active:scale-95">
-                <ion-icon name="checkmark" class="text-lg"></ion-icon>
-                Save
-              </button>
-              <button
-                type="button"
-                (click)="closeModal()"
-                class="flex-1 bg-gradient-to-r from-gray-300 to-gray-400 dark:from-slate-600 dark:to-slate-700 text-gray-800 dark:text-white font-bold py-3 px-6 rounded-xl shadow hover:shadow-md transition-all duration-300 flex items-center justify-center gap-2 transform hover:scale-[1.02] active:scale-95">
-                <ion-icon name="close-circle" class="text-lg"></ion-icon>
-                Cancel
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </ng-template>
-</ion-modal>
+<app-mdl-homework [isModalOpen]="isModalOpen" [classes]="classesList" [editingHomework]="editingHomework" (modalClosed)="closeModal()"></app-mdl-homework>
 
 </div>
