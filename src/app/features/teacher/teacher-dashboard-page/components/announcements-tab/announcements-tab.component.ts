@@ -5,8 +5,16 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { IonContent, IonIcon, IonModal, IonTextarea } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
-  megaphone, calendarOutline, send, closeCircle
+  megaphone, calendarOutline, send, closeCircle,
+  eyeOutline
 } from 'ionicons/icons';
+
+interface Announcement {
+  id?: number; // Optional ID for identifying announcements
+  title?: string;
+  message: string;
+  date: Date;
+}
 
 @Component({
   selector: 'app-announcements-tab',
@@ -14,74 +22,124 @@ import {
   styleUrls: ['./announcements-tab.component.scss'],
   standalone: true,
   imports: [
-    IonContent, IonIcon, IonModal, IonTextarea,
+    IonIcon, IonModal, IonTextarea,
     CommonModule, ReactiveFormsModule
   ],
 })
 export class AnnouncementsTabComponent {
+  announcements: Announcement[] = [];
+  announcementForm!: FormGroup;
   showAnnouncementModal = false;
-  announcementForm: FormGroup;
-  calendarDays = Array.from({ length: 30 }, (_, i) => i + 1);
-
-  // Sample data - should ideally come from a service
-  announcements = [
-    { message: 'Parent-Teacher meeting scheduled for this Friday. Please ensure all parents attend.', date: '2025-09-12' },
-    { message: 'School will be closed on Monday for Independence Day celebration.', date: '2025-09-15' },
-    { message: 'Mid-term examinations will begin from October 1st. Study schedule has been shared.', date: '2025-09-10' }
-  ];
-
-  calendarEvents = [
-    { date: '2025-09-12', label: 'PTM' },
-    { date: '2025-09-15', label: 'Holiday' },
-    { date: '2025-09-20', label: 'Exam' }
-  ];
+  editingAnnouncement: Announcement | null = null;
 
   constructor(private fb: FormBuilder) {
-    addIcons({ megaphone, calendarOutline, send, closeCircle });
+
+    addIcons({
+      eyeOutline,
+      megaphone,
+      closeCircle
+    })
+  }
+
+  ngOnInit(): void {
+    this.initForm();
+    this.loadSampleAnnouncements(); // For demonstration purposes
+  }
+
+  initForm(): void {
     this.announcementForm = this.fb.group({
-      message: ['', [Validators.required, Validators.minLength(10)]]
+      message: ['', [Validators.required, Validators.minLength(10)]],
     });
   }
 
-  openAnnouncementModal() {
+  loadSampleAnnouncements(): void {
+    // Sample data for demonstration
+    this.announcements = [
+      {
+        id: 1,
+        title: 'Upcoming Exam Schedule',
+        message: 'Please review the exam schedule posted on the portal.',
+        date: new Date(),
+      },
+      {
+        id: 2,
+        title: 'Holiday Notice',
+        message: 'The school will be closed on Monday for a public holiday.',
+        date: new Date(),
+      },
+    ];
+  }
+
+  openAnnouncementModal(announcement?: Announcement): void {
+    if (announcement) {
+      this.editingAnnouncement = announcement;
+      this.announcementForm.patchValue({ message: announcement.message });
+    } else {
+      this.editingAnnouncement = null;
+      this.announcementForm.reset();
+    }
     this.showAnnouncementModal = true;
   }
 
-  closeAnnouncementModal() {
+  closeAnnouncementModal(): void {
     this.showAnnouncementModal = false;
+    this.editingAnnouncement = null;
     this.announcementForm.reset();
   }
 
-  addAnnouncement() {
-    if (this.announcementForm.valid) {
-      const formValue = this.announcementForm.value;
-      const newAnnouncement = {
-        message: formValue.message,
-        date: new Date().toISOString().slice(0, 10)
-      };
-      this.announcements.unshift(newAnnouncement); // Add to beginning
-      this.announcementForm.reset();
-      this.closeAnnouncementModal();
-      console.log('Announcement added successfully!');
-    } else {
-      Object.keys(this.announcementForm.controls).forEach(key => {
-        const control = this.announcementForm.get(key);
-        control?.markAsTouched();
-      });
+  saveAnnouncement(): void {
+    if (this.announcementForm.invalid) {
+      return;
     }
+
+    const message = this.announcementForm.value.message;
+
+    if (this.editingAnnouncement) {
+      // Update existing announcement
+      this.editingAnnouncement.message = message;
+    } else {
+      // Add new announcement
+      const newAnnouncement: Announcement = {
+        id: Date.now(), // Use timestamp as unique ID
+        message,
+        date: new Date(),
+      };
+      this.announcements.push(newAnnouncement);
+    }
+
+    this.closeAnnouncementModal();
   }
 
-  // Utility Methods
-  isFormFieldInvalid(fieldName: string): boolean {
-    const field = this.announcementForm.get(fieldName);
-    return !!(field?.invalid && field.touched);
+  editAnnouncement(announcement: Announcement): void {
+    this.openAnnouncementModal(announcement);
   }
 
-  getFormFieldError(fieldName: string): string {
-    const field = this.announcementForm.get(fieldName);
-    if (field?.errors && field.touched) {
-      if (field.errors['required']) return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required`;
-      if (field.errors['minlength']) return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is too short`;
+  deleteAnnouncement(announcement: Announcement): void {
+    this.announcements = this.announcements.filter(
+      (item) => item.id !== announcement.id
+    );
+  }
+
+  showAnnouncementOptions(announcement: Announcement): void {
+    console.log('More options for:', announcement);
+  }
+
+  trackByFn(index: number, item: Announcement): number {
+    return item.id || index;
+  }
+
+  isFormFieldInvalid(field: string): boolean {
+    const control = this.announcementForm.get(field);
+    return !!control && !!control.invalid && (control.touched || control.dirty);
+  }
+
+  getFormFieldError(field: string): string {
+    const control = this.announcementForm.get(field);
+    if (control?.hasError('required')) {
+      return 'This field is required.';
+    }
+    if (control?.hasError('minlength')) {
+      return 'Message must be at least 10 characters long.';
     }
     return '';
   }

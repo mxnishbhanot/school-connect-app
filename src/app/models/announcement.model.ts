@@ -1,5 +1,5 @@
 export interface Announcement {
-  id: string;
+  id: any;
   message: string;
   date: Date;
   createdBy: string;

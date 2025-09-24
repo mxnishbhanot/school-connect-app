@@ -1,0 +1,23 @@
+ion-content {
+  --padding-start: 0;
+  --padding-end: 0;
+  --padding-top: 0;
+  --padding-bottom: 0;
+}
+
+.scroll-mask {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 0.5rem,
+    black calc(100% - 0.5rem),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 0.5rem,
+    black calc(100% - 0.5rem),
+    transparent 100%
+  );
+}

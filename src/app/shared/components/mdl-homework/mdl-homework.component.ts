@@ -11,7 +11,7 @@ import {
   IonSelectOption
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { book, checkmark, close, closeCircle } from 'ionicons/icons';
+import { book, calendar, checkmark, close, closeCircle } from 'ionicons/icons';
 
 // Interface for class data
 interface ClassData {

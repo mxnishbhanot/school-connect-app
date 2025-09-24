@@ -5,6 +5,7 @@ import { IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   addOutline,
+  calendar,
   chevronForwardOutline
 } from 'ionicons/icons';
 import { MdlHomeworkComponent } from 'src/app/shared/components/mdl-homework/mdl-homework.component';
