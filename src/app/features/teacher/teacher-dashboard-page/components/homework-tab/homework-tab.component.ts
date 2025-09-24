@@ -1,19 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { IonIcon, IonModal, IonHeader, IonContent, IonButton, IonTitle, IonToolbar, IonButtons, IonLabel, IonSelect, IonSelectOption, IonDatetime, IonDatetimeButton, IonSpinner, IonInput, IonTextarea } from '@ionic/angular/standalone';
+import { IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   addOutline,
-  pencilOutline,
-  trashOutline,
-  closeOutline,
-  bookOutline,
-  calendarOutline,
-  saveOutline,
-  addCircleOutline
+  chevronForwardOutline
 } from 'ionicons/icons';
 import { MdlHomeworkComponent } from 'src/app/shared/components/mdl-homework/mdl-homework.component';
+import { CardHomeworkComponent } from 'src/app/shared/components/card-homework/card-homework.component';
 
 interface Homework {
   id: number;
@@ -21,9 +16,10 @@ interface Homework {
   description: string;
   dueDate: string;
   className: string;
-  status: 'pending' | 'completed';
+  status: 'pending' | 'completed' | 'in-progress';
   createdAt?: Date;
   updatedAt?: Date;
+  progress: number;
 }
 
 @Component({
@@ -32,7 +28,8 @@ interface Homework {
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    IonIcon, MdlHomeworkComponent
+    IonIcon, MdlHomeworkComponent,
+    CardHomeworkComponent
   ],
   templateUrl: './homework-tab.component.html',
   styleUrls: ['./homework-tab.component.scss']
@@ -48,7 +45,8 @@ export class HomeworkTabComponent {
       dueDate: "2024-09-20",
       className: "Class 5A",
       status: "pending",
-      createdAt: new Date('2024-09-15')
+      createdAt: new Date('2024-09-15'),
+      progress: 20
     },
     {
       id: 2,
@@ -57,7 +55,8 @@ export class HomeworkTabComponent {
       dueDate: "2024-09-25",
       className: "Class 5B",
       status: "pending",
-      createdAt: new Date('2024-09-14')
+      createdAt: new Date('2024-09-14'),
+      progress: 80
     },
     {
       id: 3,
@@ -66,7 +65,8 @@ export class HomeworkTabComponent {
       dueDate: "2024-09-18",
       className: "Class 6A",
       status: "completed",
-      createdAt: new Date('2024-09-10')
+      createdAt: new Date('2024-09-10'),
+      progress: 100
     }
   ];
   classesList = [
@@ -83,14 +83,8 @@ export class HomeworkTabComponent {
 
   constructor(private fb: FormBuilder) {
     addIcons({
-      addOutline,
-      pencilOutline,
-      trashOutline,
-      closeOutline,
-      bookOutline,
-      calendarOutline,
-      saveOutline,
-      addCircleOutline
+      chevronForwardOutline,
+      addOutline
     });
 
     this.modalForm = this.fb.group({
@@ -163,7 +157,7 @@ export class HomeworkTabComponent {
     this.isModalOpen = true;
   }
 
-  deleteHomework(id: number) {
+  deleteHomework(id: any) {
     if (confirm('Are you sure you want to delete this homework assignment?')) {
       this.homeworkList = this.homeworkList.filter(h => h.id !== id);
     }
@@ -204,5 +198,17 @@ export class HomeworkTabComponent {
         this.modalForm.get(key)?.markAsTouched();
       });
     }
+  }
+
+  updateHomeworkStatus(homework: Homework) {
+    const index = this.homeworkList.findIndex(h => h.id === homework.id);
+    if (index !== -1) {
+      this.homeworkList[index].status = homework.status === 'pending' ? 'completed' : 'pending';
+      this.homeworkList[index].updatedAt = new Date();
+    }
+  }
+
+  showHomeworkOptions(homework: Homework) {
+    alert(`More options for: ${homework.title}`);
   }
 }

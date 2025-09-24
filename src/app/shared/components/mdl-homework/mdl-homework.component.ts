@@ -11,7 +11,7 @@ import {
   IonSelectOption
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { book, checkmark, closeCircle } from 'ionicons/icons';
+import { book, checkmark, close, closeCircle } from 'ionicons/icons';
 
 // Interface for class data
 interface ClassData {
@@ -26,7 +26,7 @@ interface HomeworkData {
   description: string;
   dueDate: string;
   className: string;
-  status: 'pending' | 'completed';
+  status: 'pending' | 'completed' | 'in-progress';
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -73,7 +73,7 @@ export class MdlHomeworkComponent implements OnInit {
   constructor(private fb: FormBuilder) {
     this.initializeForm();
     addIcons({
-      checkmark, closeCircle, book
+      checkmark, close, book
     });
   }
 

@@ -29,3 +29,21 @@ body {
   --padding-top: 12px;
   --padding-bottom: 12px;
 }
+
+.input-highlight, .textarea-highlight, .select-highlight{
+  display: none !important;
+}
+
+/* Ensure proper height calculation */
+ion-content {
+  --ion-background-color: transparent;
+}
+
+/* Fix for flexbox height issues */
+.h-full {
+  height: 100%;
+}
+
+.min-h-0 {
+  min-height: 0;
+}

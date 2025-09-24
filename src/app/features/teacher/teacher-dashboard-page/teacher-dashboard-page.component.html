@@ -1,94 +1,65 @@
-<ion-content class="ion-no-padding">
-  <!-- Main Container with Full Screen Height and SchoolConnect Gradient -->
-  <div
-    class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-slate-900 dark:via-blue-900 dark:to-indigo-900 flex flex-col relative overflow-hidden">
-    <!-- Animated Background Elements (Matching SchoolConnect style) -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none">
-      <div class="absolute top-10 left-10 w-32 h-32 bg-blue-200/20 dark:bg-blue-400/10 rounded-full blur-2xl animate-pulse"></div>
-      <div class="absolute bottom-20 right-10 w-40 h-40 bg-purple-200/20 dark:bg-purple-400/10 rounded-full blur-2xl animate-pulse delay-1000">
-      </div>
-      <div class="absolute top-1/3 right-1/4 w-24 h-24 bg-green-200/20 dark:bg-green-400/10 rounded-full blur-xl animate-pulse delay-500">
-      </div>
-    </div>
+<ion-content class="ion-no-padding" [fullscreen]="true">
+  <div class="flex flex-col h-full bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-slate-900 dark:via-blue-900 dark:to-indigo-900">
 
-    <!-- Header Section -->
-    <div class="relative z-10 px-6 pt-12 pb-6">
-      <div class="flex items-center justify-between mb-6">
-        <!-- Welcome Section -->
-        <div class="flex items-center space-x-4">
-          <!-- Profile Icon Container (Updated to SchoolConnect style) -->
+    <!-- 🔹 Sticky Dashboard Header + Tabs -->
+    <div class="flex-shrink-0 px-4 pt-4 pb-4 bg-transparent">
+      <!-- Welcome + Profile -->
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center space-x-3">
           <div
-            class="w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg transform rotate-3 hover:rotate-6 transition-transform duration-300">
+            class="w-14 h-14 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg transform rotate-3">
             <span class="text-2xl">👩‍🏫</span>
           </div>
           <div>
-            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Welcome Back!</h1>
+            <h1 class="text-xl font-bold text-gray-900 dark:text-white">Welcome Back!</h1>
             <p class="text-gray-600 dark:text-gray-300 text-sm font-medium">Teacher Dashboard</p>
           </div>
         </div>
-        <!-- Profile/Settings Button (Updated to SchoolConnect style) -->
-        <button
-          (click)="openSettings()"
-          class="w-10 h-10 bg-white/20 dark:bg-slate-700/50 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/30 dark:border-slate-600 hover:bg-white/30 dark:hover:bg-slate-600/50 transition-all duration-300">
-          <svg class="w-5 h-5 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
-            </path>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z">
-            </path>
-          </svg>
+        <button (click)="openSettings()" class="w-9 h-9 bg-white/20 dark:bg-slate-700/50 rounded-xl flex items-center justify-center">
+          <ion-icon name="settings-outline" class="text-gray-800 dark:text-gray-200"></ion-icon>
         </button>
       </div>
 
-      <!-- Custom Tab Navigation (Updated to SchoolConnect style) -->
-      <div class="bg-white/50 dark:bg-slate-800/50 backdrop-blur-xl rounded-2xl p-2 border border-white/30 dark:border-slate-700">
-        <div class="grid grid-cols-3 gap-2">
-          <!-- Homework Tab -->
-          <button (click)="setTab('homework')"
-            [class]="tab === 'homework' ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-md dark:shadow-lg' : 'text-gray-700 dark:text-gray-300 hover:bg-white/30 dark:hover:bg-slate-700/50'"
-            class="flex flex-col items-center py-4 px-3 rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95">
-            <ion-icon name="book-outline" class="text-2xl mb-2"></ion-icon>
+      <!-- Tab Navigation -->
+      <div class="bg-white/50 dark:bg-slate-800/50 backdrop-blur-xl rounded-2xl p-1 border border-white/30 dark:border-slate-700">
+        <div class="grid grid-cols-3 gap-1">
+          <button (click)="setTab('homework')" [class]="tab === 'homework' ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white' : 'text-gray-700 dark:text-gray-300'" class="py-3 px-2 rounded-xl flex flex-col items-center">
+            <ion-icon name="book-outline" class="text-xl mb-1"></ion-icon>
             <span class="text-xs font-semibold">Homework</span>
           </button>
-          <!-- Gallery Tab -->
-          <button (click)="setTab('gallery')"
-            [class]="tab === 'gallery' ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-md dark:shadow-lg' : 'text-gray-700 dark:text-gray-300 hover:bg-white/30 dark:hover:bg-slate-700/50'"
-            class="flex flex-col items-center py-4 px-3 rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95">
-            <ion-icon name="images-outline" class="text-2xl mb-2"></ion-icon>
+          <button (click)="setTab('gallery')" [class]="tab === 'gallery' ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white' : 'text-gray-700 dark:text-gray-300'" class="py-3 px-2 rounded-xl flex flex-col items-center">
+            <ion-icon name="images-outline" class="text-xl mb-1"></ion-icon>
             <span class="text-xs font-semibold">Gallery</span>
           </button>
-          <!-- Announcements Tab -->
-          <button (click)="setTab('announcements')"
-            [class]="tab === 'announcements' ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-md dark:shadow-lg' : 'text-gray-700 dark:text-gray-300 hover:bg-white/30 dark:hover:bg-slate-700/50'"
-            class="flex flex-col items-center py-4 px-3 rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95">
-            <ion-icon name="megaphone-outline" class="text-2xl mb-2"></ion-icon>
+          <button (click)="setTab('announcements')" [class]="tab === 'announcements' ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white' : 'text-gray-700 dark:text-gray-300'" class="py-3 px-2 rounded-xl flex flex-col items-center">
+            <ion-icon name="megaphone-outline" class="text-xl mb-1"></ion-icon>
             <span class="text-xs font-semibold">Announcements</span>
           </button>
         </div>
       </div>
     </div>
 
-    <!-- Tab Content Area -->
-    <div class="flex-1 relative z-10 px-6 pb-6">
-      <!-- Content Container (Updated to SchoolConnect style) -->
-      <div
-        class="bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-3xl border border-white/50 dark:border-slate-700 shadow-lg h-full overflow-hidden">
-        <!-- Content with fade transition -->
-        <div class="h-full relative">
-          <!-- Homework Tab Content -->
-          <div *ngIf="tab === 'homework'" class="h-full p-6 animate-fade-in">
-            <app-homework-tab></app-homework-tab>
-          </div>
-          <!-- Gallery Tab Content -->
-          <div *ngIf="tab === 'gallery'" class="h-full p-6 animate-fade-in">
-            <app-gallery-tab></app-gallery-tab>
-          </div>
-          <!-- Announcements Tab Content -->
-          <div *ngIf="tab === 'announcements'" class="h-full p-6 animate-fade-in">
-            <app-announcements-tab></app-announcements-tab>
-          </div>
+    <!-- 🔹 Tab Content Area - FIXED HEIGHT -->
+    <div class="flex-1 min-h-0 px-4 pb-4">
+      <div class="h-full bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-3xl border border-white/50 dark:border-slate-700 shadow-lg overflow-hidden">
+
+        <!-- Homework Tab -->
+        <div *ngIf="tab === 'homework'" class="h-full">
+          <app-homework-tab></app-homework-tab>
         </div>
+
+        <!-- Gallery Tab -->
+        <div *ngIf="tab === 'gallery'" class="h-full">
+          <app-gallery-tab></app-gallery-tab>
+        </div>
+
+        <!-- Announcements Tab -->
+        <div *ngIf="tab === 'announcements'" class="h-full">
+          <app-announcements-tab></app-announcements-tab>
+        </div>
+
       </div>
     </div>
+
   </div>
 </ion-content>

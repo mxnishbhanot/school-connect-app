@@ -1,20 +1,60 @@
 .font-nunito {
-	font-family: 'Nunito', 'Quicksand', sans-serif;
+  font-family: 'Nunito', 'Quicksand', sans-serif;
 }
 
 ion-input.custom-input {
-  --padding-start: 12px;
-  --padding-end: 12px;
-  --padding-top: 10px;
-  --padding-bottom: 10px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
   --color: #1f2937;
+  --background: transparent;
+  --border-radius: 16px;
 }
+
 ion-textarea.custom-input {
+  // --padding-start: 16px;
+  // --padding-end: 16px;
+  // --padding-top: 12px;
+  // --padding-bottom: 12px;
   --color: #1f2937;
+  --background: transparent;
+  --border-radius: 16px;
 }
+
 ion-select.custom-input {
-   --padding-start: 12px;
-  --padding-end: 12px;
-  --padding-top: 10px;
-  --padding-bottom: 10px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  --color: #1f2937;
+  --background: transparent;
+  --border-radius: 16px;
+}
+
+ion-datetime {
+  --background: transparent;
+  --border-radius: 16px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+}
+
+/* Custom scrollbar for modal */
+.max-h-\[calc\(100vh-12rem\)\]::-webkit-scrollbar {
+  width: 6px;
+}
+
+.max-h-\[calc\(100vh-12rem\)\]::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin: 4px;
+}
+
+.max-h-\[calc\(100vh-12rem\)\]::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #3b82f6, #6366f1);
+  border-radius: 10px;
+}
+
+.max-h-\[calc\(100vh-12rem\)\]::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #2563eb, #4f46e5);
 }

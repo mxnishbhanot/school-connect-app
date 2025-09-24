@@ -1,0 +1,97 @@
+<div class="homework-card-container relative">
+  <!-- Animated Background Elements -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <!-- Gradient background elements (optional) -->
+    <!-- <div class="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-blue-200/20 to-purple-200/20 dark:from-blue-400/10 dark:to-purple-400/10 rounded-full blur-2xl animate-pulse"></div> -->
+  </div>
+
+  <!-- Main Card -->
+  <div class="homework-card group bg-gradient-to-br from-white/95 via-white/90 to-white/80 dark:from-slate-800/95 dark:via-slate-800/90 dark:to-slate-800/80 rounded-3xl shadow-lg border border-white/40 dark:border-slate-700/30 p-6 max-w-md w-full relative z-10 transition-all duration-300 ease-out hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 backdrop-blur-sm">
+
+    <!-- Gradient border effect on hover -->
+    <div class="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/0 via-indigo-500/0 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+
+    <!-- Card Header with Floating Status -->
+    <div class="flex justify-between items-start mb-4 relative z-10">
+      <!-- Priority/Status Indicator with Gradient -->
+      <div class="status-indicator inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg backdrop-blur-sm border border-white/20" [ngClass]="getStatusClasses()">
+        <div class="status-dot w-2 h-2 rounded-full bg-current opacity-80"></div>
+        <span class="drop-shadow-sm">{{ getStatusText() }}</span>
+      </div>
+
+      <!-- Due Date Badge with Gradient -->
+      <div class="due-date-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium shadow-lg backdrop-blur-sm border border-white/20" [ngClass]="getDueDateUrgency()">
+        <ion-icon name="time-outline" class="text-sm opacity-90"></ion-icon>
+        <span class="drop-shadow-sm">{{ getDueDateText() }}</span>
+      </div>
+    </div>
+
+    <!-- Card Content -->
+    <div class="mb-5 relative z-10">
+      <!-- Title with Gradient Text -->
+      <div class="title-section relative mb-3">
+        <h3 class="text-lg font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-200 bg-clip-text text-transparent leading-tight mt-2 tracking-tight">
+          {{ homework.title }}
+        </h3>
+        <!-- Gradient underline -->
+        <div class="w-12 h-0.5 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full mt-2"></div>
+      </div>
+
+      <!-- Description -->
+      <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4 line-clamp-2">
+        {{ homework.description }}
+      </p>
+
+      <!-- Class Badge with Gradient -->
+      <div class="class-badge inline-flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-white shadow-lg bg-gradient-to-r from-blue-500 via-blue-600 to-indigo-600 hover:from-blue-600 hover:via-blue-700 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105">
+        <ion-icon name="school-outline" class="text-sm"></ion-icon>
+        <span class="drop-shadow-sm">{{ homework.className }}</span>
+      </div>
+    </div>
+
+    <!-- Interactive Footer -->
+    <div class="flex justify-between items-center relative z-10">
+      <!-- Progress Bar with Gradient -->
+      <div class="progress-section flex-1 mr-4" *ngIf="homework.progress !== undefined">
+        <div class="w-full h-2 bg-gray-200/80 dark:bg-gray-700/80 rounded-full overflow-hidden mb-2 backdrop-blur-sm">
+          <div class="progress-fill h-full rounded-full transition-all duration-700 ease-out bg-gradient-to-r from-blue-500 via-blue-600 to-indigo-600 shadow-lg shadow-blue-500/30"
+               [style.width.%]="homework.progress || 0"></div>
+        </div>
+        <span class="text-xs font-medium bg-gradient-to-r from-gray-600 to-gray-500 dark:from-gray-300 dark:to-gray-400 bg-clip-text text-transparent">
+          {{ homework.progress || 0 }}% Complete
+        </span>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons flex gap-2 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-out">
+        <!-- Mark Complete/Pending Toggle -->
+        <button
+          class="action-btn w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg hover:shadow-green-500/30"
+          (click)="toggleStatus()">
+          <ion-icon [name]="homework.status === 'completed' ? 'checkmark-circle' : 'checkmark-circle-outline'" class="text-lg"></ion-icon>
+        </button>
+
+        <!-- Edit Button -->
+        <button class="action-btn edit-btn w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 bg-gradient-to-r from-gray-300 to-gray-400 dark:from-gray-600 dark:to-gray-700 text-gray-900 dark:text-white shadow-lg"
+                (click)="editHomework()">
+          <ion-icon name="create-outline" class="text-lg"></ion-icon>
+        </button>
+
+        <!-- Delete Button -->
+        <button class="action-btn delete-btn w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 bg-gradient-to-r from-red-500 to-pink-600 text-white shadow-lg hover:shadow-red-500/30"
+                (click)="deleteHomework()">
+          <ion-icon name="trash-outline" class="text-lg"></ion-icon>
+        </button>
+
+        <!-- More Options Button -->
+        <button class="action-btn more-btn w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 bg-gradient-to-r from-gray-300 to-gray-400 dark:from-gray-600 dark:to-gray-700 text-gray-900 dark:text-white shadow-lg"
+                (click)="showMoreOptions()">
+          <ion-icon name="ellipsis-horizontal" class="text-lg"></ion-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Subtle hover glow effect -->
+    <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-500/5 via-indigo-500/3 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+  </div>
+</div>
