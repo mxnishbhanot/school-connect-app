@@ -12,11 +12,12 @@ import {
 import { HomeworkTabComponent } from "./components/homework-tab/homework-tab.component";
 import { GalleryTabComponent } from './components/gallery-tab/gallery-tab.component';
 import { AnnouncementsTabComponent } from './components/announcements-tab/announcements-tab.component';
+import { TabNavigationComponent } from 'src/app/shared/components/tab-navigation/tab-navigation.component';
 
 @Component({
   selector: 'app-teacher-dashboard-page',
   standalone: true,
-  imports: [CommonModule, IonContent, IonIcon, HomeworkTabComponent, GalleryTabComponent, AnnouncementsTabComponent],
+  imports: [CommonModule, IonContent, IonIcon, HomeworkTabComponent, GalleryTabComponent, AnnouncementsTabComponent, TabNavigationComponent],
   templateUrl: './teacher-dashboard-page.component.html',
   styleUrls: ['./teacher-dashboard-page.component.scss']
 })
@@ -32,7 +33,7 @@ export class TeacherDashboardPageComponent {
     });
   }
 
-  setTab(tab: 'homework' | 'gallery' | 'announcements') {
+  setTab(tab: any) {
     this.tab = tab;
     console.log('Tab switched to:', tab);
   }

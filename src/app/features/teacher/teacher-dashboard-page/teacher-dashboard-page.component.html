@@ -1,5 +1,6 @@
 <ion-content class="ion-no-padding" [fullscreen]="true">
-  <div class="flex flex-col h-full bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-slate-900 dark:via-blue-900 dark:to-indigo-900">
+  <div
+    class="flex flex-col h-full bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-slate-900 dark:via-blue-900 dark:to-indigo-900">
 
     <!-- 🔹 Sticky Dashboard Header + Tabs -->
     <div class="flex-shrink-0 px-4 pb-4 bg-transparent" style="padding-top: max(1rem, var(--ion-safe-area-top, 1rem))">
@@ -15,33 +16,20 @@
             <p class="text-gray-600 dark:text-gray-300 text-sm font-medium">Teacher Dashboard</p>
           </div>
         </div>
-        <button (click)="openSettings()" class="w-9 h-9 bg-white/20 dark:bg-slate-700/50 rounded-xl flex items-center justify-center">
+        <button (click)="openSettings()"
+          class="w-9 h-9 bg-white/20 dark:bg-slate-700/50 rounded-xl flex items-center justify-center">
           <ion-icon name="settings-outline" class="text-gray-800 dark:text-gray-200"></ion-icon>
         </button>
       </div>
 
       <!-- Tab Navigation -->
-      <div class="bg-white/50 dark:bg-slate-800/50 backdrop-blur-xl rounded-2xl p-1 border border-white/30 dark:border-slate-700">
-        <div class="grid grid-cols-3 gap-1">
-          <button (click)="setTab('homework')" [class]="tab === 'homework' ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white' : 'text-gray-700 dark:text-gray-300'" class="py-3 px-2 rounded-xl flex flex-col items-center">
-            <ion-icon name="book-outline" class="text-xl mb-1"></ion-icon>
-            <span class="text-xs font-semibold">Homework</span>
-          </button>
-          <button (click)="setTab('gallery')" [class]="tab === 'gallery' ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white' : 'text-gray-700 dark:text-gray-300'" class="py-3 px-2 rounded-xl flex flex-col items-center">
-            <ion-icon name="images-outline" class="text-xl mb-1"></ion-icon>
-            <span class="text-xs font-semibold">Gallery</span>
-          </button>
-          <button (click)="setTab('announcements')" [class]="tab === 'announcements' ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white' : 'text-gray-700 dark:text-gray-300'" class="py-3 px-2 rounded-xl flex flex-col items-center">
-            <ion-icon name="megaphone-outline" class="text-xl mb-1"></ion-icon>
-            <span class="text-xs font-semibold">Announcements</span>
-          </button>
-        </div>
-      </div>
+      <app-tab-navigation [activeTab]="tab" (tabChange)="setTab($event)"></app-tab-navigation>
     </div>
 
     <!-- 🔹 Tab Content Area - FIXED HEIGHT -->
     <div class="flex-1 min-h-0 px-4 pb-4">
-      <div class="h-full bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-3xl border border-white/50 dark:border-slate-700 shadow-lg overflow-hidden">
+      <div
+        class="h-full bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-3xl border border-white/50 dark:border-slate-700 shadow-lg overflow-hidden">
 
         <!-- Homework Tab -->
         <div *ngIf="tab === 'homework'" class="h-full">

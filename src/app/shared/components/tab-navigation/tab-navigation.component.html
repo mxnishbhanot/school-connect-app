@@ -1,0 +1,39 @@
+<div
+  class="bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-2xl p-2 shadow-lg border border-white/20 dark:border-slate-700/50"
+>
+  <div class="grid grid-cols-3 gap-2">
+    <button
+      *ngFor="let tab of tabs"
+      (click)="setTab(tab.key)"
+      [ngClass]="
+        activeTab === tab.key
+          ? 'bg-gradient-to-r ' + tab.gradient + ' text-white shadow-md scale-105'
+          : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700/50'
+      "
+      class="transition-all duration-300 py-3 px-2 rounded-xl flex flex-col items-center justify-center"
+    >
+      <!-- Icon -->
+      <ion-icon
+        [name]="tab.icon"
+        [ngClass]="
+          activeTab === tab.key
+            ? 'text-2xl mb-0'
+            : 'text-lg mb-1'
+        "
+        class="transition-all duration-300"
+      ></ion-icon>
+
+      <!-- Label fades out when active -->
+      <span
+        [ngClass]="
+          activeTab === tab.key
+            ? 'opacity-0 h-0 overflow-hidden'
+            : 'opacity-100 h-auto'
+        "
+        class="text-[11px] font-medium tracking-wide transition-all duration-300"
+      >
+        {{ tab.label }}
+      </span>
+    </button>
+  </div>
+</div>
