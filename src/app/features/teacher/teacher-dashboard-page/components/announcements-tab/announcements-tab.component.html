@@ -3,7 +3,8 @@
   <div class="flex-shrink-0 p-4 border-b border-gray-200 dark:border-slate-600">
     <div class="text-center space-y-3">
       <div class="flex items-center justify-center space-x-2">
-        <div class="w-8 h-8 bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-md dark:shadow-lg rounded-lg flex items-center justify-center transform rotate-3">
+        <div
+          class="w-8 h-8 bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-md dark:shadow-lg rounded-lg flex items-center justify-center transform rotate-3">
           <ion-icon name="megaphone-outline" class="text-white text-lg"></ion-icon>
         </div>
         <h1 class="text-xl font-bold text-gray-900 dark:text-white">
@@ -15,24 +16,34 @@
 
   <!-- Elegant Add Button Section -->
   <div class="flex-shrink-0 px-4 pt-4 pb-2">
-    <button
-      (click)="openAnnouncementModal()"
+    <button (click)="openAnnouncementModal()"
       class="elegant-add-btn w-full group relative overflow-hidden flex items-center justify-between bg-gradient-to-br from-orange-500/10 via-orange-600/15 to-red-700/10 backdrop-blur-sm border border-orange-500/30 rounded-2xl p-4 transition-all duration-400 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] hover:-translate-y-0.5 hover:shadow-lg hover:shadow-orange-500/15 hover:border-orange-500 active:translate-y-0 active:duration-100 dark:from-orange-500/8 dark:via-orange-600/12 dark:to-red-700/8 dark:border-orange-500/20 dark:hover:border-orange-500 dark:hover:shadow-orange-500/20">
       <!-- Animated gradient overlay -->
-      <div class="absolute inset-0 -left-full bg-gradient-to-r from-transparent via-orange-500/10 to-transparent transition-all duration-600 ease-in-out group-hover:left-full"></div>
+      <div
+        class="absolute inset-0 -left-full bg-gradient-to-r from-transparent via-orange-500/10 to-transparent transition-all duration-600 ease-in-out group-hover:left-full">
+      </div>
 
       <div class="flex items-center justify-center space-x-3 relative z-10">
-        <div class="relative w-11 h-11 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/30 transition-all duration-300 ease-in-out group-hover:scale-105 group-hover:rotate-90 group-hover:shadow-xl group-hover:shadow-orange-500/40">
+        <div
+          class="relative w-11 h-11 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/30 transition-all duration-300 ease-in-out group-hover:scale-105 group-hover:rotate-90 group-hover:shadow-xl group-hover:shadow-orange-500/40">
           <!-- Glow effect -->
-          <div class="absolute inset-0 bg-gradient-to-br from-orange-400 to-red-500 rounded-xl opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100"></div>
-          <ion-icon name="add-outline" class="text-white text-lg relative z-10 transition-all duration-300 ease-in-out"></ion-icon>
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-orange-400 to-red-500 rounded-xl opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100">
+          </div>
+          <ion-icon name="add-outline"
+            class="text-white text-lg relative z-10 transition-all duration-300 ease-in-out"></ion-icon>
         </div>
         <div class="text-left">
-          <h3 class="text-base font-semibold text-orange-500 transition-colors duration-300 ease-in-out group-hover:text-orange-600 group-hover:drop-shadow-lg group-hover:drop-shadow-orange-500/30 dark:text-orange-400 dark:group-hover:text-orange-500">Create New Announcement</h3>
-          <p class="text-xs text-gray-500 transition-colors duration-300 ease-in-out group-hover:text-orange-500 dark:text-gray-400 dark:group-hover:text-orange-400">Share important updates with students</p>
+          <h3
+            class="text-base font-semibold text-orange-500 transition-colors duration-300 ease-in-out group-hover:text-orange-600 group-hover:drop-shadow-lg group-hover:drop-shadow-orange-500/30 dark:text-orange-400 dark:group-hover:text-orange-500">
+            Add Announcement</h3>
+          <p
+            class="text-xs text-gray-500 transition-colors duration-300 ease-in-out group-hover:text-orange-500 dark:text-gray-400 dark:group-hover:text-orange-400">
+            Share important updates with students</p>
         </div>
       </div>
-      <div class="text-gray-400 opacity-70 transition-all duration-300 ease-in-out group-hover:text-orange-500 group-hover:opacity-100 group-hover:translate-x-1 relative z-10">
+      <div
+        class="text-gray-400 opacity-70 transition-all duration-300 ease-in-out group-hover:text-orange-500 group-hover:opacity-100 group-hover:translate-x-1 relative z-10">
         <ion-icon name="chevron-forward-outline"></ion-icon>
       </div>
     </button>
@@ -41,29 +52,36 @@
   <!-- Scrollable Content Area with Blur Edges -->
   <div class="flex-1 min-h-0 overflow-hidden relative">
     <!-- Top Blur Fade -->
-    <div class="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-white/70 to-transparent dark:from-slate-800/70 z-10 pointer-events-none"></div>
+    <div
+      class="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-white/70 to-transparent dark:from-slate-800/70 z-10 pointer-events-none">
+    </div>
 
     <!-- Bottom Blur Fade -->
-    <div class="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white/70 to-transparent dark:from-slate-800/70 z-10 pointer-events-none"></div>
+    <div
+      class="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white/70 to-transparent dark:from-slate-800/70 z-10 pointer-events-none">
+    </div>
 
     <!-- Scrollable Content -->
-    <div class="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-gradient-to-b scrollbar-thumb-from-orange-500 scrollbar-thumb-to-red-400 scrollbar-track-transparent scrollbar-thumb-rounded-full py-2">
+    <div
+      class="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-gradient-to-b scrollbar-thumb-from-orange-500 scrollbar-thumb-to-red-400 scrollbar-track-transparent scrollbar-thumb-rounded-full py-2">
       <div class="p-4">
         <!-- Announcements Card Grid -->
         <div class="grid grid-cols-1 gap-4" *ngIf="announcements.length > 0">
           <div *ngFor="let announcement of announcements; trackBy: trackByFn"
-               class="bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl rounded-2xl p-6 border border-white/20 dark:border-slate-700/50 shadow-md hover:shadow-lg transition-all duration-300 group">
+            class="bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl rounded-2xl p-6 border border-white/20 dark:border-slate-700/50 shadow-md hover:shadow-lg transition-all duration-300 group">
 
             <!-- Announcement Header -->
             <div class="flex justify-between items-start mb-4">
               <!-- Status Indicator -->
-              <div class="status-indicator inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold shadow-md bg-gradient-to-r from-orange-500 to-red-600 text-white">
+              <div
+                class="status-indicator inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold shadow-md bg-gradient-to-r from-orange-500 to-red-600 text-white">
                 <div class="status-dot w-2 h-2 rounded-full bg-white"></div>
                 <span>Active</span>
               </div>
 
               <!-- Date Badge -->
-              <div class="due-date-badge inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium shadow-md bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300">
+              <div
+                class="due-date-badge inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium shadow-md bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300">
                 <ion-icon name="time-outline" class="text-sm opacity-80"></ion-icon>
                 <span>{{ announcement.date | date:'mediumDate' }}</span>
               </div>
@@ -85,7 +103,8 @@
               </p>
 
               <!-- Type Badge -->
-              <div class="class-badge inline-flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-white shadow-lg bg-gradient-to-r from-orange-500 to-red-600">
+              <div
+                class="class-badge inline-flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-white shadow-lg bg-gradient-to-r from-orange-500 to-red-600">
                 <ion-icon name="megaphone-outline" class="text-sm"></ion-icon>
                 <span>General Announcement</span>
               </div>
@@ -102,22 +121,26 @@
               </div>
 
               <!-- Action Buttons -->
-              <div class="action-buttons flex gap-2 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-out">
+              <div
+                class="action-buttons flex gap-2 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-out">
                 <!-- Edit Button -->
-                <button class="action-btn w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 bg-gradient-to-r from-orange-500 to-red-600 text-white shadow-lg"
-                        (click)="editAnnouncement(announcement)">
+                <button
+                  class="action-btn w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 bg-gradient-to-r from-orange-500 to-red-600 text-white shadow-lg"
+                  (click)="editAnnouncement(announcement)">
                   <ion-icon name="create-outline" class="text-lg"></ion-icon>
                 </button>
 
                 <!-- Delete Button -->
-                <button class="action-btn delete-btn w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 bg-gradient-to-r from-red-500 to-pink-600 text-white shadow-lg"
-                        (click)="deleteAnnouncement(announcement)">
+                <button
+                  class="action-btn delete-btn w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 bg-gradient-to-r from-red-500 to-pink-600 text-white shadow-lg"
+                  (click)="deleteAnnouncement(announcement)">
                   <ion-icon name="trash-outline" class="text-lg"></ion-icon>
                 </button>
 
                 <!-- More Options Button -->
-                <button class="action-btn more-btn w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white shadow-lg"
-                        (click)="showAnnouncementOptions(announcement)">
+                <button
+                  class="action-btn more-btn w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white shadow-lg"
+                  (click)="showAnnouncementOptions(announcement)">
                   <ion-icon name="ellipsis-horizontal" class="text-lg"></ion-icon>
                 </button>
               </div>
@@ -127,8 +150,10 @@
 
         <!-- Empty State -->
         <div *ngIf="announcements.length === 0" class="text-center py-8">
-          <div class="bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl rounded-2xl p-6 border border-white/20 dark:border-slate-700/50 shadow-md">
-            <div class="w-12 h-12 mx-auto bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl shadow-lg flex items-center justify-center mb-4 transform rotate-3">
+          <div
+            class="bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl rounded-2xl p-6 border border-white/20 dark:border-slate-700/50 shadow-md">
+            <div
+              class="w-12 h-12 mx-auto bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl shadow-lg flex items-center justify-center mb-4 transform rotate-3">
               <ion-icon name="megaphone-outline" class="text-xl text-white"></ion-icon>
             </div>
             <h3 class="text-gray-900 dark:text-white font-semibold text-lg mb-2">No announcements yet</h3>
@@ -143,7 +168,8 @@
   <ion-modal [isOpen]="showAnnouncementModal" (didDismiss)="closeAnnouncementModal()">
     <ng-template>
       <div class="min-h-screen bg-black/50 dark:bg-black/70 flex items-center justify-center p-4">
-        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl w-full max-w-md mx-auto overflow-hidden transform transition-all duration-300 scale-95 animate-in fade-in-90 zoom-in-90">
+        <div
+          class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl w-full max-w-md mx-auto overflow-hidden transform transition-all duration-300 scale-95 animate-in fade-in-90 zoom-in-90">
 
           <!-- Modal Header -->
           <div class="bg-gradient-to-r from-orange-500 to-red-600 p-6">
@@ -159,11 +185,9 @@
 
               <!-- Message Field -->
               <div>
-                <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Announcement Message</label>
-                <ion-textarea
-                  formControlName="message"
-                  placeholder="Write your announcement here..."
-                  rows="4"
+                <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Announcement
+                  Message</label>
+                <ion-textarea formControlName="message" placeholder="Write your announcement here..." rows="4"
                   class="custom-input w-full p-3 rounded-xl bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                   required>
                 </ion-textarea>
@@ -174,15 +198,12 @@
 
               <!-- Modal Buttons -->
               <div class="flex gap-3 pt-4">
-                <button
-                  type="submit"
+                <button type="submit"
                   class="flex-1 bg-gradient-to-r from-orange-500 to-red-600 text-white font-bold py-3 px-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 transform hover:scale-[1.02] active:scale-95">
                   <ion-icon name="checkmark" class="text-lg"></ion-icon>
                   {{ editingAnnouncement ? 'Update' : 'Post' }}
                 </button>
-                <button
-                  type="button"
-                  (click)="closeAnnouncementModal()"
+                <button type="button" (click)="closeAnnouncementModal()"
                   class="flex-1 bg-gradient-to-r from-gray-300 to-gray-400 dark:from-slate-600 dark:to-slate-700 text-gray-800 dark:text-white font-bold py-3 px-6 rounded-xl shadow hover:shadow-md transition-all duration-200 flex items-center justify-center gap-2 transform hover:scale-[1.02] active:scale-95">
                   <ion-icon name="close-circle" class="text-lg"></ion-icon>
                   Cancel
