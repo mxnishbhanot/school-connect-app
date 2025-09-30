@@ -1,50 +1,40 @@
-<ion-header class="ion-no-border" [translucent]="true">
-  <ion-toolbar class="custom-toolbar">
-    <div class="bg-white dark:bg-blue-900/30 rounded-3xl mt-3 mb-2 px-4 py-3 shadow-sm dark:shadow-blue-900/20">
-      <div class="flex items-center justify-between">
-        <!-- User Info Section -->
-        <div class="flex items-center gap-3">
-          <div class="relative">
-            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-pink-400 via-pink-500 to-purple-500 flex items-center justify-center text-2xl ring-2 ring-pink-400/30 dark:ring-pink-500/20">
-              👩‍🏫
-            </div>
-            <div class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-white dark:border-blue-900"></div>
-          </div>
-
-          <div class="flex flex-col">
-            <span class="text-sm font-medium text-gray-500 dark:text-blue-200/70">{{ greeting }}</span>
-            <h1 class="text-lg font-bold text-gray-900 dark:text-white leading-tight">{{ userName }}</h1>
-          </div>
+<div class="bg-white/90 p-4 dark:bg-slate-800/90 backdrop-blur-xl p-3 shadow-2xl border border-white/20 dark:border-slate-700/50">
+  <div class="flex items-center justify-between">
+    <!-- User Info Section -->
+    <div class="flex items-center gap-3">
+      <div class="relative">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-pink-400 via-pink-500 to-purple-500 flex items-center justify-center text-2xl ring-2 ring-pink-400/30 dark:ring-pink-500/20">
+          👩‍🏫
         </div>
+        <div class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-white dark:border-slate-800"></div>
+      </div>
 
-        <!-- Action Buttons -->
-        <ion-buttons slot="end" class="flex gap-2">
-          <ion-button
-            (click)="openNotifications()"
-            fill="clear"
-            class="notification-btn">
-            <div class="relative w-10 h-10 flex items-center justify-center rounded-xl bg-gray-100 dark:bg-blue-800/40 hover:bg-gray-200 dark:hover:bg-blue-800/60 transition-all">
-              <ion-icon
-                name="notifications-outline"
-                class="text-xl text-gray-700 dark:text-white">
-              </ion-icon>
-              <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white dark:ring-blue-900"></span>
-            </div>
-          </ion-button>
-
-          <ion-button
-            (click)="openSettings()"
-            fill="clear"
-            class="settings-btn">
-            <div class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-100 dark:bg-blue-800/40 hover:bg-gray-200 dark:hover:bg-blue-800/60 transition-all">
-              <ion-icon
-                name="settings-outline"
-                class="text-xl text-gray-700 dark:text-white">
-              </ion-icon>
-            </div>
-          </ion-button>
-        </ion-buttons>
+      <div class="flex flex-col">
+        <span class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ greeting }}</span>
+        <h1 class="text-lg font-bold text-gray-900 dark:text-white leading-tight">{{ userName }}</h1>
       </div>
     </div>
-  </ion-toolbar>
-</ion-header>
+
+    <!-- Action Buttons -->
+    <div class="flex gap-2">
+      <button
+        (click)="openNotifications()"
+        class="relative w-10 h-10 flex items-center justify-center rounded-xl bg-gray-100 dark:bg-slate-700/50 hover:bg-gray-200 dark:hover:bg-slate-600/50 transition-all duration-300">
+        <ion-icon
+          name="notifications-outline"
+          class="text-xl text-gray-700 dark:text-gray-300">
+        </ion-icon>
+        <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white dark:ring-slate-800"></span>
+      </button>
+
+      <button
+        (click)="openSettings()"
+        class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-100 dark:bg-slate-700/50 hover:bg-gray-200 dark:hover:bg-slate-600/50 transition-all duration-300">
+        <ion-icon
+          name="settings-outline"
+          class="text-xl text-gray-700 dark:text-gray-300">
+        </ion-icon>
+      </button>
+    </div>
+  </div>
+</div>

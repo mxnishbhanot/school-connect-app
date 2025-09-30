@@ -1,19 +1,14 @@
 <ion-content class="ion-padding" [fullscreen]="true">
-  <div
-    class="flex flex-col h-full bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-slate-900 dark:via-blue-900 dark:to-indigo-900">
+  <div class="flex flex-col h-full bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-slate-900 dark:via-blue-900 dark:to-indigo-900">
 
-    <!-- 🔹 Sticky Dashboard Header + Tabs -->
-    <div class="flex-shrink-0 px-4 pb-4 bg-transparent" style="padding-top: max(1rem, var(--ion-safe-area-top, 1rem))">
+    <!-- 📍 FIXED HEADER AT TOP -->
+    <div class="flex-shrink-0">
       <app-tab-header></app-tab-header>
-
-      <!-- Tab Navigation -->
-      <app-tab-navigation [activeTab]="tab" (tabChange)="setTab($event)"></app-tab-navigation>
     </div>
 
-    <!-- 🔹 Tab Content Area - FIXED HEIGHT -->
-    <div class="flex-1 min-h-0 px-4 pb-4">
-      <div
-        class="h-full bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-3xl border border-white/50 dark:border-slate-700 shadow-lg overflow-hidden">
+    <!-- 📍 SCROLLABLE CONTENT AREA (Between header and tabs) -->
+    <div class="flex-1 min-h-0 px-4 my-2 overflow-y-auto">
+      <div class="h-full bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-3xl border border-white/50 dark:border-slate-700 shadow-lg overflow-hidden">
 
         <!-- Homework Tab -->
         <div *ngIf="tab === 'homework'" class="h-full">
@@ -31,6 +26,11 @@
         </div>
 
       </div>
+    </div>
+
+    <!-- 📍 FIXED BOTTOM TAB NAVIGATION -->
+    <div class="flex-shrink-0">
+      <app-tab-navigation [activeTab]="tab" (tabChange)="setTab($event)"></app-tab-navigation>
     </div>
 
   </div>
