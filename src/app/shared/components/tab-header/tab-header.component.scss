@@ -1,0 +1,96 @@
+:host {
+  ion-header {
+    background: transparent !important;
+
+    &::after {
+      display: none !important;
+    }
+  }
+}
+
+ion-header {
+  background: transparent !important;
+  --background: transparent !important;
+
+  &::after {
+    display: none !important;
+  }
+
+  &::part(background) {
+    background: transparent !important;
+  }
+
+  // Remove backdrop filter
+  .header-background {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: transparent !important;
+  }
+}
+
+.custom-toolbar {
+  --background: transparent !important;
+  --padding-start: 0;
+  --padding-end: 0;
+  --min-height: 72px;
+  background: transparent !important;
+
+  &::part(native) {
+    background: transparent !important;
+  }
+
+  // Remove backdrop filter from toolbar background
+  .toolbar-background {
+    background: transparent !important;
+    border: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+// Target the header background specifically
+ion-toolbar {
+  --background: transparent !important;
+
+  .toolbar-background {
+    background: transparent !important;
+    border: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+ion-button {
+  --padding-start: 0;
+  --padding-end: 0;
+  margin: 0;
+  height: auto;
+
+  &::part(native) {
+    padding: 0;
+  }
+}
+
+ion-avatar {
+  transition: transform 0.2s ease;
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+// Add subtle animations
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.custom-toolbar > div {
+  animation: fadeInUp 0.4s ease-out;
+}
