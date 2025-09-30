@@ -30,7 +30,7 @@ interface Homework {
     CommonModule,
     ReactiveFormsModule,
     IonIcon, MdlHomeworkComponent,
-    CardHomeworkComponent
+    CardHomeworkComponent,
   ],
   templateUrl: './homework-tab.component.html',
   styleUrls: ['./homework-tab.component.scss']
